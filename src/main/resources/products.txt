@@ -1,5 +1,5 @@
 Gandalf the Grey,49.9f,USD,Fantastic price. Changeable cloak (grey and white).,Wizard,Lord of the Rings
-uncleVernon,19.9f,USD,Fat guy with abusive attitude,Muggle,Harry Potter
+Uncle Vernon,19.9f,USD,Fat guy with abusive attitude,Muggle,Harry Potter
 Samwise Gamgee,59.9f,USD,He cannot carry the ring but he can carry you,Hobbit,Lord of the Rings
 Frodo Baggins,49.9f,USD,Tiny ringbearer with curly hair and disturbingly blue eyes,Hobbit,Lord of the Rings
 Legolas,34.9f,USD,Perfect for seeing issues. Sees everything instead of you,Elf,Lord of the Rings
