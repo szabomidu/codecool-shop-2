@@ -22,25 +22,34 @@ function displayFilterResults(response) {
     const productsContainer = document.querySelector("#products");
     productsContainer.innerHTML = "";
     let newContent = "";
-    for (let product of response) {
-        newContent +=
-            `<div class="col col-sm-12 col-md-6 col-lg-4">
-                <div class="card">
-                    <img class="" src='/static/img/product_1.jpg' alt=""/>
-                    <div class="card-header">
-                        <h4 class="card-title">${product.name}</h4>
-                        <p class="card-text">${product.description}</p>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-text">
-                            <p class="lead">${product.defaultPrice} USD</p>
+    if (response.length === 0) {
+        const supplierSelectField = document.querySelector("#supplier-select");
+        const categorySelectField = document.querySelector("#category-select");
+        newContent += `There is no
+            ${categorySelectField.options[categorySelectField.selectedIndex].text}
+                        in the world of
+            ${supplierSelectField.options[supplierSelectField.selectedIndex].text}`;
+    } else {
+        for (let product of response) {
+            newContent +=
+                `<div class="col col-sm-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <img class="" src='/static/img/product_1.jpg' alt=""/>
+                        <div class="card-header">
+                            <h4 class="card-title">${product.name}</h4>
+                            <p class="card-text">${product.description}</p>
                         </div>
-                        <div class="card-text">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                        <div class="card-body">
+                            <div class="card-text">
+                                <p class="lead">${product.defaultPrice} USD</p>
+                            </div>
+                            <div class="card-text">
+                                <a class="btn btn-success" href="#">Add to cart</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>`
+                </div>`
+        }
     }
     productsContainer.innerHTML = newContent;
 }
