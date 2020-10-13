@@ -47,13 +47,15 @@ public class Initializer implements ServletContextListener {
         Product sam = new Product("Samwise Gamgee", 59.9f, "USD", "He cannot carry the ring but he can carry you", hobbit, lordOfTheRings);
         Product legolas = new Product("Legolas", 34.9f, "USD", "Perfect for seeing issues. Sees everything instead of you", elf, lordOfTheRings);
         Product ronWeasley = new Product("Ron Weasley", 19.9f, "USD", "Unimportant ginger buddy. Suites well for French people, because he eats snails as fast as hell", wizard, harryPotter);
+        Product harryPotterCharacter = new Product("Harry Potter", 29.9f, "USD", "The choosen one with tha scar on his head", wizard, harryPotter);
+        Product hermioneGranger = new Product("Hermione Granger", 39.9f, "USD", "Crush of every 90's kid", wizard, harryPotter);
         Product gimli = new Product("Gimli", 44.9f, "USD", "He would die before he sees the ring in an elf's hand", dwarf, lordOfTheRings);
         Product drogon = new Product("Drogon", 69.9f, "USD", "Gigantic aggressive dragon aka The Winged Shadow", dragon, gameOfThrones);
         Product obiWan = new Product("Obi Wan Kenobi", 24.9f, "USD", "Hello there", jedi, starWars);
         Product anakin = new Product("Anakin Skywalker", 20.9f, "USD", "Psychological wreck aka Darth Vader", sith, starWars);
         Product windu = new Product("Master Windu", 24.9f, "USD", "Black guy with long purple lightsaber", jedi, starWars);
 
-        productDataStore.addAll(gandalf, uncleVernon, sam, legolas, ronWeasley, gimli, drogon, obiWan, anakin, windu);
+        productDataStore.addAll(gandalf, uncleVernon, sam, legolas, harryPotterCharacter, ronWeasley, hermioneGranger, gimli, drogon, obiWan, anakin, windu);
 
     }
 }
