@@ -37,17 +37,17 @@
 
 <div class="container">
     <div class="card">
-        <select>
-            <option th:each="supplier : ${suppliers}" th:text="${supplier.name}" th:value="${supplier.name}">Supplier
+        <select id="supplier-select">
+            <option th:each="supplier : ${suppliers}" th:text="${supplier.name}" th:value="${supplier.id}">Supplier
                 Name
             </option>
         </select>
-        <select>
-            <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.name}">Category
+        <select id="category-select">
+            <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}">Category
                 Name
             </option>
         </select>
-        <button id="search">Filter</button>
+        <button id="filter" class="btn btn-primary">Filter</button>
     </div>
 
     <div id="products" class="row">
