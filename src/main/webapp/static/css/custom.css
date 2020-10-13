@@ -68,7 +68,19 @@
     margin: 0 0 11px;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    padding-top: 80px;
+}
+
 .header-container {
+    top: 0;
+    position: fixed;
+    z-index: 10;
     height: 80px;
     background-color: #b3e5e5;
     width: 100%;
