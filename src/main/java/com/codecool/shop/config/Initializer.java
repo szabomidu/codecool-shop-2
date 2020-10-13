@@ -58,12 +58,12 @@ public class Initializer implements ServletContextListener {
         Product hagrid = new Product("Hagrid", 44.9f, "USD", "He's a bigger Gimli, a beast-lover semi-giant. It's a shame he is mentioned under this category but let's be honest, he's greatest skill is creating a pigtail with an umbrella", muggle, harryPotter);
         Product gimli = new Product("Gimli", 44.9f, "USD", "He would die before he sees the ring in an elf's hand", dwarf, lordOfTheRings);
         Product drogon = new Product("Drogon", 69.9f, "USD", "Gigantic aggressive dragon aka The Winged Shadow", dragon, gameOfThrones);
-        Product dobby = new Product("Dobby", 49.9f, "USD", "Well he may not be as cool as Middle-Earth elves, this little boi is a useful tool in defeating dark lord. Has a fetish on socks", elf, harryPotter);
+        Product dobby = new Product("Dobby", 49.9f, "USD", "Well he may not be as cool as Middle-Earth elves, this little boi is a useful tool in defeating dark lords. Has a fetish on socks", elf, harryPotter);
         Product obiWan = new Product("Obi Wan Kenobi", 24.9f, "USD", "Hello there", jedi, starWars);
         Product anakin = new Product("Anakin Skywalker", 20.9f, "USD", "Psychological wreck aka Darth Vader", sith, starWars);
         Product windu = new Product("Master Windu", 24.9f, "USD", "Black guy with long purple lightsaber", jedi, starWars);
         Product voldemort = new Product("Lord Voldemort", 9.9f, "USD", "Noseless snaky-sneaky guy. Defeated by an infant, kind of a looser. Buy one and take one for free!", darkLord, harryPotter);
-        Product sauron = new Product("Sauron", 33.9f, "USD", "Former president of Middle-Earth. Was not re-elected due to some issues with stole jewelery", darkLord, lordOfTheRings);
+        Product sauron = new Product("Sauron", 33.9f, "USD", "Former president of Middle-Earth. Was not re-elected due to some issues with stolen jewelery", darkLord, lordOfTheRings);
         Product sidous = new Product("Darth Sidious", 54.9f, "USD", "He has power. Un. Limited. Power.", darkLord, starWars);
         Product plagueis = new Product("Darth Plagueis", 34.9f, "USD", "He's one of the most ironic guys.. He could save others from death but not himself. What a prank", darkLord, starWars);
 
