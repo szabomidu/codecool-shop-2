@@ -33,7 +33,20 @@ public class FilterController extends HttpServlet {
 
         int supplierId = Integer.parseInt(req.getParameter("supplier"));
         int categoryId = Integer.parseInt(req.getParameter("category"));
-        List<Product> products = productDataStore.getBy(supplierDataStore.find(supplierId), productCategoryDataStore.find(categoryId));
+        List<Product> products;
+
+        if (supplierId == 0) {
+            if (categoryId == 0) {
+                products = productDataStore.getAll();
+            } else {
+                products = productDataStore.getBy(productCategoryDataStore.find(categoryId));
+            }
+        } else if(categoryId == 0){
+                products = productDataStore.getBy(supplierDataStore.find(supplierId));
+        } else {
+            products = productDataStore.getBy(supplierDataStore.find(supplierId), productCategoryDataStore.find(categoryId));
+        }
+
         String responseJSON = gson.toJson(products);
         PrintWriter out = resp.getWriter();
         out.println(responseJSON);
