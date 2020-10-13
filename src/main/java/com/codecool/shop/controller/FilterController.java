@@ -37,14 +37,6 @@ public class FilterController extends HttpServlet {
         String responseJSON = gson.toJson(products);
         PrintWriter out = resp.getWriter();
         out.println(responseJSON);
-
-//        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-//        WebContext context = new WebContext(req, resp, req.getServletContext());
-//
-//        context.setVariable("categories", productCategoryDataStore.getAll());
-//        context.setVariable("suppliers", supplierDataStore.getAll());
-//        context.setVariable("products", );
-//        engine.process("product/index.html", context, resp.getWriter());
     }
 
 }
