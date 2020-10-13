@@ -9,6 +9,7 @@ import java.util.List;
 public interface ProductDao {
 
     void add(Product product);
+    void addAll(Product ... products);
     Product find(int id);
     void remove(int id);
 

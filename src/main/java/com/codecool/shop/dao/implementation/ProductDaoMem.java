@@ -7,6 +7,7 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,11 @@ public class ProductDaoMem implements ProductDao {
     public void add(Product product) {
         product.setId(data.size() + 1);
         data.add(product);
+    }
+
+    @Override
+    public void addAll(Product... products) {
+        Arrays.stream(products).forEach(this::add);
     }
 
     @Override

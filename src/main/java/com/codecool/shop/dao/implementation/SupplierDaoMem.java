@@ -4,6 +4,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SupplierDaoMem implements SupplierDao {
@@ -27,6 +28,11 @@ public class SupplierDaoMem implements SupplierDao {
     public void add(Supplier supplier) {
         supplier.setId(data.size() + 1);
         data.add(supplier);
+    }
+
+    @Override
+    public void addAll(Supplier... suppliers) {
+        Arrays.stream(suppliers).forEach(this::add);
     }
 
     @Override
