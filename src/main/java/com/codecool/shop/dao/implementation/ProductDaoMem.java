@@ -7,6 +7,7 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,11 @@ public class ProductDaoMem implements ProductDao {
     }
 
     @Override
+    public void addAll(Product... products) {
+        Arrays.stream(products).forEach(this::add);
+    }
+
+    @Override
     public Product find(int id) {
         return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
     }
@@ -56,5 +62,12 @@ public class ProductDaoMem implements ProductDao {
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
         return data.stream().filter(t -> t.getProductCategory().equals(productCategory)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Product> getBy(Supplier supplier, ProductCategory productCategory) {
+        return data.stream().filter(t -> t.getProductCategory().equals(productCategory)
+                                        && t.getSupplier().equals(supplier))
+                            .collect(Collectors.toList());
     }
 }

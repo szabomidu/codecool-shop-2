@@ -1,12 +1,14 @@
 package com.codecool.shop.dao;
 
 import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 import java.util.List;
 
 public interface ProductCategoryDao {
 
     void add(ProductCategory category);
+    void addAll(ProductCategory... categories);
     ProductCategory find(int id);
     void remove(int id);
 
