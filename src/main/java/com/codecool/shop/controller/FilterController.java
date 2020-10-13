@@ -42,7 +42,7 @@ public class FilterController extends HttpServlet {
                 products = productDataStore.getBy(productCategoryDataStore.find(categoryId));
             }
         } else if(categoryId == 0){
-                products = productDataStore.getBy(supplierDataStore.find(supplierId));
+            products = productDataStore.getBy(supplierDataStore.find(supplierId));
         } else {
             products = productDataStore.getBy(supplierDataStore.find(supplierId), productCategoryDataStore.find(categoryId));
         }
