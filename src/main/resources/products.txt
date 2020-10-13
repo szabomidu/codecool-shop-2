@@ -1,0 +1,23 @@
+Gandalf the Grey,49.9f,USD,Fantastic price. Changeable cloak (grey and white).,Wizard,Lord of the Rings
+uncleVernon,19.9f,USD,Fat guy with abusive attitude,Muggle,Harry Potter
+Samwise Gamgee,59.9f,USD,He cannot carry the ring but he can carry you,Hobbit,Lord of the Rings
+Frodo Baggins,49.9f,USD,Tiny ringbearer with curly hair and disturbingly blue eyes,Hobbit,Lord of the Rings
+Legolas,34.9f,USD,Perfect for seeing issues. Sees everything instead of you,Elf,Lord of the Rings
+Aragorn,54.9f,USD,Heir of Isildur and a bad-ass elf-girl hunter. Greatest warrior of Middle-Earth,Human,Lord of the Rings
+Boromir,14.9f,USD,Do not trust this man! Will probably try to take the ring!!4!,Human,Lord of the Rings
+Ron Weasley,19.9f,USD,Unimportant ginger buddy. Suites well for French people 'cos he eats snails as fast as hell,Wizard,Harry Potter
+Harry Potter,29.9f,USD,The choosen one with tha scar on his head,Wizard,Harry Potter
+Hermione Granger,39.9f,USD,Crush of every 90's kid,Wizard,Harry Potter
+Albus Dumbledore,59.9f,USD,Manipulative old chap but his beard is cool. Probably cousin of Gandalf,Wizard,Harry Potter
+Norbert,24.9f,USD,Fascinating misunderstood creature of Hagrid's. May wear some Romanian cultural traces,Dragon,Harry Potter
+Hagrid,44.9f,USD,He's a bigger Gimli and a beast-lover semi-giant. It's a shame he is mentioned under this category but let's be honest he's greatest skill is creating a pigtail with an umbrella,Muggle,Harry Potter
+Gimli,44.9f,USD,He would die before he sees the ring in an elf's hand,Dwarf,Lord of the Rings
+Drogon,69.9f,USD,Gigantic aggressive dragon aka The Winged Shadow,Dragon,Game of Thrones
+Dobby,49.9f,USD,Well he may not be as cool as Middle-Earth elves this little boi is a useful tool in defeating dark lords. Has a fetish on socks,Elf,Harry Potter
+Obi Wan Kenobi,24.9f,USD,Hello there,Jedi,Star Wars
+Anakin Skywalker,20.9f,USD,Psychological wreck aka Darth Vader,Sith,Star Wars
+Master Windu,24.9f,USD,Black guy with long purple lightsaber,Jedi,Star Wars
+Lord Voldemort,9.9f,USD,Noseless snaky-sneaky guy. Defeated by an infant so he's kind of a looser. Buy one and take one for free!,Dark Lord,Harry Potter
+Sauron,33.9f,USD,Former president of Middle-Earth. Was not re-elected due to some issues with stolen jewelery,Dark Lord,Lord of the Rings
+Darth Sidious,54.9f,USD,He has power. Un. Limited. Power.,Dark Lord,Star Wars
+Darth Plagueis,34.9f,USD,He's one of the most ironic guys.. He could save others from death but not himself. What a prank,Dark Lord,Star Wars
