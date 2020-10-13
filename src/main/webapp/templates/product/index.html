@@ -38,11 +38,13 @@
 <div class="container">
     <div class="card">
         <select id="supplier-select">
+            <option value="0" selected>All</option>
             <option th:each="supplier : ${suppliers}" th:text="${supplier.name}" th:value="${supplier.id}">Supplier
                 Name
             </option>
         </select>
         <select id="category-select">
+            <option value="0" selected>All</option>
             <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}">Category
                 Name
             </option>
