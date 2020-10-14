@@ -150,3 +150,7 @@ i {
 .header-container > .header-title {
     padding-left: 40%;
 }
+
+#products img {
+    height: 300px;
+}

@@ -62,7 +62,7 @@
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_1.jpg'"
+                <img class="" src="http://placehold.it/400x250/000/fff" th:src="@{${'/static/img/product_' + prod.getId() + '.jpg'}}"
                      alt=""/>
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
