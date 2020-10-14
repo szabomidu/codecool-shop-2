@@ -87,6 +87,27 @@ public class LineItemController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        BufferedReader reader = req.getReader();
+        LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
+
+        try {
+            String[] numbers = reader.readLine().split(",");
+            int orderId = Integer.parseInt(numbers[0]);
+            int lineItemId = Integer.parseInt(numbers[1]);
+
+            LineItem lineItem = lineItemDataStore.find(lineItemId);
+            Order order = orderDataStore.find(orderId);
+
+            order.removeLineItem(lineItem);
+            lineItemDataStore.remove(lineItemId);
+
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            throw new ArrayIndexOutOfBoundsException("Not enough ID provided!");
+        } catch (NumberFormatException exception) {
+            throw new NumberFormatException("Invalid format for integer!");
+        } catch (NullPointerException exception) {
+            throw new NullPointerException("There's no line item or order stored in the system with the given id!");
+        }
     }
 }
