@@ -63,6 +63,7 @@ public class LineItemController extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
         LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
+        Gson gson = new Gson();
 
         try {
             String line = reader.readLine();
@@ -74,7 +75,8 @@ public class LineItemController extends HttpServlet {
             lineItem.changeQuantity(quantityChange);
 
             PrintWriter out = resp.getWriter();
-            out.println(lineItem.getQuantity());
+            String responseJSON = gson.toJson(lineItem);
+            out.println(responseJSON);
 
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new ArrayIndexOutOfBoundsException("Not enough ID provided!");

@@ -119,7 +119,7 @@ function displayLineItemInCart(response) {
     if (response.quantity > 1) {
         for (let lineItem of lineItemsInTable) {
             if (lineItem.dataset.id === response.id.toString()) {
-                changeQuantity(lineItem, 1);
+                changeQuantity(lineItem, response);
             }
         }
     } else {
@@ -142,11 +142,9 @@ function displayLineItemInCart(response) {
     updateCartNumber(1);
 }
 
-function changeQuantity(lineItem, change) {
-    let quantity = parseInt(lineItem.querySelector('.quantity-number').innerText);
-    let unitPrice = parseFloat(lineItem.querySelector('.unit-price').innerText).toFixed(1);
-    lineItem.querySelector('.quantity-number').innerHTML = (quantity + change).toString();
-    lineItem.querySelector('.total-price').innerHTML = (unitPrice * (parseFloat(quantity).toFixed(1) + change)).toFixed(1).toString();
+function changeQuantity(lineItem, response) {
+    lineItem.querySelector('.quantity-number').innerHTML = response.quantity.toString();
+    lineItem.querySelector('.total-price').innerHTML = response.totalPrice.toFixed(1).toString();
 }
 
 function updateCartNumber(change) {
@@ -159,8 +157,8 @@ function decreaseQuantityFromCart() {
     const lineItemId = lineItem.dataset.id;
     if (parseInt(lineItem.querySelector('.quantity-number').innerText) > 1) {
         let body = `${lineItemId},-1`;
-        dataHandler._api_put('api/lineitem', body, () => {
-            changeQuantity(lineItem, -1);
+        dataHandler._api_put('api/lineitem', body, (response) => {
+            changeQuantity(lineItem, response);
             updateCartNumber(-1);
         });
     }
@@ -171,8 +169,8 @@ function increaseQuantityFromCart() {
     const lineItem = this.closest("tr")
     const lineItemId = lineItem.dataset.id;
     let body = `${lineItemId},1`;
-    dataHandler._api_put('api/lineitem', body, () => {
-        changeQuantity(lineItem, 1);
+    dataHandler._api_put('api/lineitem', body, (response) => {
+        changeQuantity(lineItem, response);
         updateCartNumber(1);
     });
 }
