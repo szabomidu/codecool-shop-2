@@ -1,0 +1,10 @@
+Wizard,Magical guy with wand or walking stick
+Muggle,Non-magical guy without wand or walking stick
+Hobbit,Hairy soled cute little alcoholic creature
+Elf,Guy with pointy ears
+Dwarf,Stuffy hairy caveman
+Jedi,Cloaked man with a colorful dingdong
+Sith,Evil cloaked man with a red dingdong
+Human,Not much really
+Dragon,Fire-breathing winged pet
+Dark Lord,Attention ladies! This is the group of bad guyz
