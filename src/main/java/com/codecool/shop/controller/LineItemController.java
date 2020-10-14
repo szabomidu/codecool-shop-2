@@ -48,6 +48,8 @@ public class LineItemController extends HttpServlet {
             String responseJSON = gson.toJson(lineItem);
             PrintWriter out = resp.getWriter();
             out.println(responseJSON);
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            throw new ArrayIndexOutOfBoundsException("Not enough ID provided!");
         } catch (NumberFormatException exception) {
             throw new NumberFormatException("Invalid format for integer!");
         } catch (NullPointerException exception) {
