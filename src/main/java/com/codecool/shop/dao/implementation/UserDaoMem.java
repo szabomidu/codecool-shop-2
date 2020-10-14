@@ -25,9 +25,10 @@ public class UserDaoMem implements UserDao {
     }
 
     @Override
-    public void add(User user) {
+    public int add(User user) {
         user.setId(data.size() + 1);
         data.add(user);
+        return user.getId();
     }
 
     @Override
