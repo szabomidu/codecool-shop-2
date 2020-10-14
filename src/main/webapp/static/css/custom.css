@@ -154,3 +154,11 @@ i {
 #products img {
     height: 300px;
 }
+
+#cart-content {
+    z-index: 15;
+}
+
+.hidden {
+    display: none;
+}
