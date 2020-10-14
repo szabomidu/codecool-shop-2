@@ -23,8 +23,9 @@ public class LineItem extends BaseModel{
         return unitPrice * quantity;
     }
 
-    public void increaseQuantity() {
-        this.quantity += 1;
+    public void changeQuantity(int change) throws IllegalArgumentException {
+        if (quantity + change <= 0) throw new IllegalArgumentException();
+        this.quantity += change;
     }
 
     public void decreaseQuantity() {
