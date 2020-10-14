@@ -224,6 +224,22 @@ i {
     width: 500px;
 }
 
+.table td, .table th{
+    border-top: 1px solid black;
+    text-align: center;
+}
+
+.table thead th{
+    border-bottom: 1px solid black;
+}
+
+.quantity-number{
+    margin: 0 5px;
+}
+
+#cart-content th {
+    padding: 10px;
+}
 
 .hidden {
     display: none;
