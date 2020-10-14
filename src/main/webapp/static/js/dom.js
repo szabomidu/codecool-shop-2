@@ -55,7 +55,7 @@ function displayFilterResults(response) {
                                 <p class="lead">${product.defaultPrice} USD</p>
                             </div>
                             <div class="card-text">
-                                <button class="btn btn-success to-cart-btn" type="button" 
+                                <button class="btn btn-primary to-cart-btn" type="button" 
                                         data-product-id="${product.id}">Add to cart</button>
                             </div>
                         </div>
