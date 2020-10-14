@@ -119,7 +119,7 @@ function displayLineItemInCart(response) {
     if (response.quantity > 1) {
         for (let lineItem of lineItemsInTable) {
             if (lineItem.dataset.id === response.id.toString()) {
-                increaseQuantity(lineItem);
+                changeQuantity(lineItem, 1);
             }
         }
     } else {
@@ -128,23 +128,51 @@ function displayLineItemInCart(response) {
         newRow.dataset.id = response.id;
         newRow.innerHTML += `
             <td>${response.name}</td>
-            <td class="quantity">${response.quantity}</td>
+            <td class="quantity"><span class="minus">-</span><div class="quantity-number">${response.quantity}</div><span class="plus">+</span></td>
             <td class="unit-price">${response.unitPrice}</td>
             <td class="total-price">${response.unitPrice * response.quantity}</td>
         `
         cartTableBody.appendChild(newRow);
+        const minusButton = newRow.querySelector('.minus');
+        const plusButton = newRow.querySelector('.plus');
+
+        minusButton.addEventListener('click', decreaseQuantityFromCart);
+        plusButton.addEventListener('click', increaseQuantityFromCart);
     }
-    updateCartNumber();
+    updateCartNumber(1);
 }
 
-function increaseQuantity(lineItem) {
-    let quantity = parseInt(lineItem.querySelector('.quantity').innerText);
+function changeQuantity(lineItem, change) {
+    let quantity = parseInt(lineItem.querySelector('.quantity-number').innerText);
     let unitPrice = parseFloat(lineItem.querySelector('.unit-price').innerText).toFixed(1);
-    lineItem.querySelector('.quantity').innerHTML = (quantity + 1).toString();
-    lineItem.querySelector('.total-price').innerHTML = (unitPrice * (parseFloat(quantity).toFixed(1) + 1)).toFixed(1).toString();
+    lineItem.querySelector('.quantity-number').innerHTML = (quantity + change).toString();
+    lineItem.querySelector('.total-price').innerHTML = (unitPrice * (parseFloat(quantity).toFixed(1) + change)).toFixed(1).toString();
 }
 
-function updateCartNumber() {
+function updateCartNumber(change) {
     const currentNumber = parseInt(document.querySelector('.cart-counter').innerHTML);
-    document.querySelector('.cart-counter').innerHTML = (currentNumber + 1).toString();
+    document.querySelector('.cart-counter').innerHTML = (currentNumber + change).toString();
+}
+
+function decreaseQuantityFromCart() {
+    const lineItem = this.closest("tr")
+    const lineItemId = lineItem.dataset.id;
+    if (parseInt(lineItem.querySelector('.quantity-number').innerText) > 1) {
+        let body = `${lineItemId},-1`;
+        dataHandler._api_put('api/lineitem', body, () => {
+            changeQuantity(lineItem, -1);
+            updateCartNumber(-1);
+        });
+    }
+
+}
+
+function increaseQuantityFromCart() {
+    const lineItem = this.closest("tr")
+    const lineItemId = lineItem.dataset.id;
+    let body = `${lineItemId},1`;
+    dataHandler._api_put('api/lineitem', body, () => {
+        changeQuantity(lineItem, 1);
+        updateCartNumber(1);
+    });
 }

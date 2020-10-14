@@ -65,7 +65,8 @@ public class LineItemController extends HttpServlet {
         LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
 
         try {
-            String[] numbers = reader.readLine().split(",");
+            String line = reader.readLine();
+            String[] numbers = line.substring(1, line.length() - 1).split(",");
             int lineItemId = Integer.parseInt(numbers[0]);
             int quantityChange = Integer.parseInt(numbers[1]);
 
