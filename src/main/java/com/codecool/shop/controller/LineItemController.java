@@ -32,7 +32,8 @@ public class LineItemController extends HttpServlet {
         Gson gson = new Gson();
 
         try {
-            String[] ids = reader.readLine().split(",");
+            String line = reader.readLine();
+            String[] ids = line.substring(1, line.length() - 1).split(",");
             int orderId = Integer.parseInt(ids[0]);
             int productId = Integer.parseInt(ids[1]);
 

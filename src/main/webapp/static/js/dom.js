@@ -91,22 +91,20 @@ function productToCart(button) {
 }
 
 function createUser(button) {
-    dataHandler._api_post(`api/user`, "", () => {
-        createOrder(button);
+    dataHandler._api_post(`api/user`, "", (userId) => {
+        createOrder(userId, button);
     });
 }
 
-function createOrder(response, button) {
-    const userId = response.id;
-
+function createOrder(userId, button) {
     document.querySelector('.cart-image').dataset.userId = userId;
-    dataHandler._api_post(`api/order`, userId, () => {
-        addProductToCart(button);
+    dataHandler._api_post(`api/order`, userId, (orderId) => {
+        addProductToCart(orderId, button);
     });
 }
 
-function addProductToCart(response, button) {
-    const orderId = response.id;
+function addProductToCart(orderId, button) {
+    // const orderId = response.id;
     const productId = button.dataset.productId;
     const body = `${orderId},${productId}`;
 
@@ -119,24 +117,27 @@ function displayLineItemInCart(response) {
     let lineItemsInTable = document.querySelectorAll('.line-item');
     if (response.quantity > 1) {
         for (let lineItem of lineItemsInTable) {
-            if (lineItem.dataset.productId === response.id) {
+            if (lineItem.dataset.id === response.id.toString()) {
                 increaseQuantity(lineItem);
             }
         }
     } else {
         const newRow = document.createElement("tr");
-        newRow.setAttribute("id", response.id);
+        newRow.classList.add('line-item');
+        newRow.dataset.id = response.id;
         newRow.innerHTML += `
             <td>${response.name}</td>
             <td class="quantity">${response.quantity}</td>
-            <td>${response.unitPrice}</td>
-            <td>${response.unitPrice * response.quantity}</td>
+            <td class="unit-price">${response.unitPrice}</td>
+            <td class="total-price">${response.unitPrice * response.quantity}</td>
         `
         cartTableBody.appendChild(newRow);
     }
 }
 
 function increaseQuantity(lineItem) {
-    let quantity = parseInt(lineItem.querySelector('.quantity').innerHTML);
+    let quantity = parseInt(lineItem.querySelector('.quantity').innerText);
+    let unitPrice = parseFloat(lineItem.querySelector('.unit-price').innerText).toFixed(1);
     lineItem.querySelector('.quantity').innerHTML = (quantity + 1).toString();
+    lineItem.querySelector('.total-price').innerHTML = (unitPrice * (parseFloat(quantity).toFixed(1) + 1)).toFixed(1).toString();
 }
