@@ -64,6 +64,7 @@ function displayFilterResults(response) {
         }
     }
     productsContainer.innerHTML = newContent;
+    addToCart();
 }
 
 function addToCart() {
