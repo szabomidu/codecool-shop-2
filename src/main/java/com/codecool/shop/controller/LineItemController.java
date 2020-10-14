@@ -96,16 +96,19 @@ public class LineItemController extends HttpServlet {
         OrderDao orderDataStore = OrderDaoMem.getInstance();
 
         try {
-            String[] numbers = reader.readLine().split(",");
+            String line = reader.readLine();
+            String[] numbers = line.substring(1, line.length() - 1).split(",");
             int orderId = Integer.parseInt(numbers[0]);
             int lineItemId = Integer.parseInt(numbers[1]);
 
             LineItem lineItem = lineItemDataStore.find(lineItemId);
             Order order = orderDataStore.find(orderId);
-
+            int quantityChange = -lineItem.getQuantity();
             order.removeLineItem(lineItem);
             lineItemDataStore.remove(lineItemId);
 
+            PrintWriter out = resp.getWriter();
+            out.println(quantityChange);
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new ArrayIndexOutOfBoundsException("Not enough ID provided!");
         } catch (NumberFormatException exception) {

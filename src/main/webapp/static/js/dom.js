@@ -128,18 +128,32 @@ function displayLineItemInCart(response) {
         newRow.dataset.id = response.id;
         newRow.innerHTML += `
             <td>${response.name}</td>
-            <td class="quantity"><span class="minus">-</span><div class="quantity-number">${response.quantity}</div><span class="plus">+</span></td>
+            <td class="quantity"><i class="fas fa-minus minus"></i><span class="quantity-number">${response.quantity}</span><i class="fas fa-plus plus"></i></td>
             <td class="unit-price">${response.unitPrice}</td>
             <td class="total-price">${response.unitPrice * response.quantity}</td>
+            <td class="delete-item"><i class="fa fa-trash" aria-hidden="true"></i></td>
         `
         cartTableBody.appendChild(newRow);
         const minusButton = newRow.querySelector('.minus');
         const plusButton = newRow.querySelector('.plus');
+        const deleteButton = newRow.querySelector('.delete-item')
 
         minusButton.addEventListener('click', decreaseQuantityFromCart);
         plusButton.addEventListener('click', increaseQuantityFromCart);
+        deleteButton.addEventListener('click', removeFromCart);
     }
     updateCartNumber(1);
+}
+
+function removeFromCart() {
+    const lineItem = this.closest("tr");
+    const lineItemId = lineItem.dataset.id;
+    const orderId = document.querySelector(".cart-image").dataset.orderId;
+    let body = `${orderId},${lineItemId}`;
+    dataHandler._api_delete('api/lineitem',body,(response, lineItem) => {
+        document.querySelector("tbody").removeChild(this.closest("tr"));
+        updateCartNumber(response);
+    })
 }
 
 function changeQuantity(lineItem, response) {
