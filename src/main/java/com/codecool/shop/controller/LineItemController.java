@@ -22,6 +22,7 @@ import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = "/api/lineitem")
 public class LineItemController extends HttpServlet {
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
@@ -39,7 +40,7 @@ public class LineItemController extends HttpServlet {
             Order order = orderDataStore.find(orderId);
             LineItem lineItem = order.findLineItemForProduct(product);
             if (lineItem != null){
-                lineItem.increaseQuantity();
+                lineItem.changeQuantity(1);
             } else {
                 lineItem = new LineItem(product);
                 lineItemDataStore.add(lineItem);
@@ -59,7 +60,29 @@ public class LineItemController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        BufferedReader reader = req.getReader();
+        LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
+
+        try {
+            String[] numbers = reader.readLine().split(",");
+            int lineItemId = Integer.parseInt(numbers[0]);
+            int quantityChange = Integer.parseInt(numbers[1]);
+
+            LineItem lineItem = lineItemDataStore.find(lineItemId);
+            lineItem.changeQuantity(quantityChange);
+
+            PrintWriter out = resp.getWriter();
+            out.println(lineItem.getQuantity());
+
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            throw new ArrayIndexOutOfBoundsException("Not enough ID provided!");
+        } catch (NumberFormatException exception) {
+            throw new NumberFormatException("Invalid format for integer!");
+        } catch (NullPointerException exception) {
+            throw new NullPointerException("There's no line item stored in the system with the given id!");
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException("Quantity cannot decrease below zero");
+        }
     }
 
     @Override
