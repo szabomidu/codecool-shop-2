@@ -6,9 +6,13 @@ import java.util.List;
 public class Order extends BaseModel{
     private List<LineItem> lineItems;
 
-    public Order(String name) {
-        super(name);
+    public Order() {
+        super();
         this.lineItems = new ArrayList<>();
+    }
+
+    public LineItem findLineItemForProduct(Product product){
+        return lineItems.stream().filter(e -> e.getName().equals(product.getName())).findFirst().orElse(null);
     }
 
     public List<LineItem> getLineItems() {

@@ -24,9 +24,10 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
-    public void add(Order order) {
+    public int add(Order order) {
         order.setId(data.size() + 1);
         data.add(order);
+        return order.getId();
     }
 
     @Override
