@@ -146,7 +146,16 @@ i {
     height: 150px;
     overflow-y: scroll;
     background-color: lightgray;
-    scrollbar-base-color: red;
+}
+
+.card-header::-webkit-scrollbar {
+    background-color: lightgray;
+    width: 10px;
+}
+
+.card-header::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 10px;
 }
 
 .card-body {
