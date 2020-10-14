@@ -11,6 +11,10 @@ public class Order extends BaseModel{
         this.lineItems = new ArrayList<>();
     }
 
+    public LineItem findLineItemForProduct(Product product){
+        return lineItems.stream().filter(e -> e.getName().equals(product.getName())).findFirst().orElse(null);
+    }
+
     public List<LineItem> getLineItems() {
         return lineItems;
     }
