@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+p {
+    margin-bottom: 0;
+}
 
 .glyphicon {
     margin-right:5px;
@@ -70,6 +73,7 @@
 
 body {
     display: flex;
+    flex-direction: column;
 }
 
 .container {
@@ -125,12 +129,30 @@ i {
     padding: 10px;
     display: flex;
     flex: 1;
-    justify-content: flex-end;
+    justify-content: flex-start;
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: #b3e5e5;
-
 }
+
+.card {
+    margin-bottom: 20px;
+}
+
+.card-header {
+    height: 150px;
+    overflow-y: scroll;
+    background-color: lightgray;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    background-color: darkgray;
+    align-items: center;
+}
+
 .search-card > select {
     margin-right: 20px;
 }
@@ -139,7 +161,7 @@ i {
     padding: 4px;
     height: 20px;
     width: 20px;
-    background-color: #09a0e8;
+    background-color: #0069d9;
     border-radius: 50%;
     display: flex;
     align-items: center;

@@ -134,6 +134,7 @@ function displayLineItemInCart(response) {
         `
         cartTableBody.appendChild(newRow);
     }
+    updateCartNumber();
 }
 
 function increaseQuantity(lineItem) {
@@ -141,4 +142,9 @@ function increaseQuantity(lineItem) {
     let unitPrice = parseFloat(lineItem.querySelector('.unit-price').innerText).toFixed(1);
     lineItem.querySelector('.quantity').innerHTML = (quantity + 1).toString();
     lineItem.querySelector('.total-price').innerHTML = (unitPrice * (parseFloat(quantity).toFixed(1) + 1)).toFixed(1).toString();
+}
+
+function updateCartNumber() {
+    const currentNumber = parseInt(document.querySelector('.cart-counter').innerHTML);
+    document.querySelector('.cart-counter').innerHTML = (currentNumber + 1).toString();
 }

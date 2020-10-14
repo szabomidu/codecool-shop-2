@@ -36,7 +36,7 @@
         <div class="cart-box" >
             <div class="cart-image" th:attr="data-user-id=0, data-order-id=0">
                 <i class="fas fa-shopping-cart"></i>
-                <div class="cart-counter">15</div>
+                <div class="cart-counter">0</div>
             </div>
         </div>
 </header>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="card-body">
                     <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                        <p th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
                         <button class="btn btn-success to-cart-btn" type="button"
