@@ -4,7 +4,18 @@ export let dom = {
 
     init: function () {
         filterProducts();
+        addToCart();
+        toggleCartVisibility();
     }
+}
+
+function toggleCartVisibility() {
+    const cartContainer = document.querySelector('.cart-image');
+
+    cartContainer.addEventListener('click', () => {
+        let cart = document.querySelector('#cart-content');
+        cart.classList.toggle('hidden');
+    });
 }
 
 function filterProducts() {
@@ -44,7 +55,8 @@ function displayFilterResults(response) {
                                 <p class="lead">${product.defaultPrice} USD</p>
                             </div>
                             <div class="card-text">
-                                <a class="btn btn-success" href="#">Add to cart</a>
+                                <button class="btn btn-success to-cart-btn" type="button" 
+                                        data-product-id="${product.id}">Add to cart</button>
                             </div>
                         </div>
                     </div>
@@ -52,4 +64,53 @@ function displayFilterResults(response) {
         }
     }
     productsContainer.innerHTML = newContent;
+}
+
+function addToCart() {
+    const buttons = document.querySelectorAll('.to-cart-btn');
+
+    for (const button of buttons) {
+        button.addEventListener('click', () => {
+            productToCart(button)
+        });
+    }
+}
+
+function productToCart(button) {
+    const cartContainer = document.querySelector('.cart-image');
+
+    let userId = parseInt(cartContainer.dataset.userId);
+    let orderId = parseInt(cartContainer.dataset.orderId);
+
+    if (userId === 0 && orderId === 0) {
+        createUser(button);
+    }
+}
+
+function createUser(button) {
+    dataHandler._api_post(`api/user`, "", () => {
+        createOrder(button);
+    });
+}
+
+function createOrder(response, button) {
+    const userId = response.id;
+
+    document.querySelector('.cart-image').dataset.userId = userId;
+    dataHandler._api_post(`api/order`, userId, () => {
+        addProductToCart(button);
+    });
+}
+
+function addProductToCart(response, button) {
+    const orderId = response.id;
+    const productId = button.dataset.productId;
+    const body = `${orderId},${productId}`;
+
+    document.querySelector('.cart-image').dataset.orderId = orderId;
+    dataHandler._api_post(`api/lineitem`, body, displayLineItemInCart);
+}
+
+function displayLineItemInCart(response) {
+
 }
