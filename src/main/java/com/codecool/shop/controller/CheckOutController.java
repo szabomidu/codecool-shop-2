@@ -32,8 +32,17 @@ public class CheckOutController extends HttpServlet {
         Order order = orderData.find(orderId);
         System.out.println(order);
         List<LineItem> lineItems = order.getLineItems();
-        System.out.println(lineItems);
+
+        double totalPrice = 0;
+        int itemsInCart = 0;
+        for (LineItem lineItem : lineItems) {
+            totalPrice += lineItem.getTotalPrice();
+            itemsInCart += lineItem.getQuantity();
+        }
+
         context.setVariable("lineItems", lineItems);
+        context.setVariable("totalPrice", Math.round(totalPrice * 100.0) / 100.0);
+        context.setVariable("itemsInCart", itemsInCart);
 
         engine.process("checkout/checkout.html", context, resp.getWriter());
 
