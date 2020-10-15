@@ -26,3 +26,8 @@ General Grievous,24.9f,USD,Bad lunged guy with replacable arms. Abandons ship wa
 Count Dooku,30.9f,USD,Old creepy-looking fellow. Twin brother of Saruman,Sith,Star Wars
 Jamie Lannister,44.9f,USD,One-handsome knight praised and hated by his world. Tends to stab kings and sisters.,Human,Game of Thrones
 Tyrion Lannister,64.9f,USD,Sharp-tongued sharp-minded alcoholic pervert hates by his sister. Always helps cripples and broken things.,Dwarf,Game of Thrones
+Ned Stark,44.9f,USD,Honourable fool of the North. Spoiler alert: he dies,Human,Game of Thrones
+Robb Stark,24.9f,USD,Latest king of the North with a pack of wolves behind his back. Spoiler alert: he dies,Human,Game of Thrones
+Daenerys Targaryen,44.9f,USD,Mother of some skinny winged creatures and a living speaking Schwarzkopf-ad,Human,Game of Thrones
+Varys,14.9f,USD,Ornithologist of Kingslanding who is always playing around with his little birds. Not very good at ball games.,Human,Game of Thrones
+Littlefinger,22.9f,USD,Mafia boss of Kingslanding. Has an incurable crush on a woman which he tries to repress with drugs and prostitution,Human,Game of Thrones
