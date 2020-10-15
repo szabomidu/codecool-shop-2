@@ -1,4 +1,4 @@
-import {dataHandler} from "./data_handler.js";
+import {dataHandler} from "../data_handler.js";
 
 export let dom = {
 
@@ -114,7 +114,6 @@ function createOrder(userId, button) {
 }
 
 function addProductToCart(orderId, button) {
-    // const orderId = response.id;
     const productId = button.dataset.productId;
     const body = `${orderId},${productId}`;
 
