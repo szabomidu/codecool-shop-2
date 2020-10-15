@@ -285,3 +285,14 @@ i {
     color: #474747;
     font-size: 50px;
 }
+
+.table-div::-webkit-scrollbar-thumb{
+    background-color: #007bff;
+    border-radius: 10px;
+}
+
+.table-div::-webkit-scrollbar {
+    background-color: cadetblue;
+    width: 10px;
+}
+
