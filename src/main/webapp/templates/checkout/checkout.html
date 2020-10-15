@@ -96,15 +96,23 @@
 
     <div id="order-confirm-container">
         <div class="col-25">
-            <div class="container">
-                <h4>Cart
-                    <span class="price" style="color:black">
-                            <i class="fa fa-shopping-cart"></i>
-                            <b>4</b>
-                        </span>
-                </h4>
+            <div id="cart-container">
+                <div class="total-price-container">
+                    <h4 id="cart">Cart</h4>
+                    <div class="cart-item-container">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span id="cart-item-amount" th:text="${itemsInCart}"></span>
+                    </div>
+
+                </div>
+<!--                <h4>Cart-->
+<!--                    <span class="price" style="color:black">-->
+<!--                            <i class="fa fa-shopping-cart"></i>-->
+<!--                            <b th:text="${itemsInCart}"></b>-->
+<!--                        </span>-->
+<!--                </h4>-->
                 <div id="line-items">
-                    <table>
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -115,17 +123,20 @@
                         </thead>
                         <tbody>
                             <tr th:each="lineItem : ${lineItems}">
-                                <td th:text="${lineItem.getName()}">Onions</td>
-                                <td th:text="${lineItem.getQuantity()}">Onions</td>
-                                <td th:text="${lineItem.getUnitPrice()}">Onions</td>
-                                <td th:text="${lineItem.getTotalPrice()}">Onions</td>
+                                <td class="item-name" th:text="${lineItem.getName()}"></td>
+                                <td th:text="${lineItem.getQuantity()}"></td>
+                                <td th:text="${lineItem.getUnitPrice()}"></td>
+                                <td th:text="${#numbers.formatDecimal(lineItem.getTotalPrice(), 0, 'COMMA', 1, 'POINT')}"></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <hr>
-                <p>Total <span class=" price
-                            " style="color:black"><b>$30</b></span></p>
+                    <div class="total-price-container">
+                        <p id="total">Total</p>
+                        <p class="price" th:text="${totalPrice}"></p>
+                    </div>
+<!--                <p>Total <span class=" price" style="color:black"><b th:text="${totalPrice}"></b></span></p>-->
                 </div>
             </div>
         </div>
