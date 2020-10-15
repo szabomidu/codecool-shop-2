@@ -12,6 +12,10 @@ body {
     justify-content: space-between;
 }
 
+.col-50 h3 {
+    margin: 20px 0;
+}
+
 .header-container {
     color: white;
     top: 0;
@@ -142,4 +146,16 @@ span.price {
 .check {
     font-size: 170px;
     color: green;
+}
+
+.error {
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    font-size: 75%;
+    height: 20px;
+    margin-top: -10px;
+    margin-bottom: 15px;
 }
