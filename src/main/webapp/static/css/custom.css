@@ -87,11 +87,12 @@ body {
     position: fixed;
     z-index: 10;
     height: 80px;
-    background-color: #b3e5e5;
+    background-color: cadetblue;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid black;
 }
 
 .cart-container {
@@ -134,7 +135,8 @@ i {
     justify-content: flex-start;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: #b3e5e5;
+    /*background-color: #b3e5e5;*/
+    background-color: darkgrey;
 }
 
 .card {
@@ -207,6 +209,7 @@ i {
 
 .header-container > .header-title {
     padding-left: 40%;
+    color: #eeeeee;
 }
 
 #products img {
@@ -219,18 +222,29 @@ i {
     position: fixed;
     top: 80px;
     right: 0;
-    background-color: bisque;
+    background-color: cadetblue;
     padding: 10px;
     width: 507px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+/*thead, #cart-content-body { display: block; }*/
+
+.table-div{
+    height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .table td, .table th{
-    border-top: 1px solid black;
+    border-top: 1px solid #eeeeee;
     text-align: center;
 }
 
 .table thead th{
-    border-bottom: 1px solid black;
+    color: #eeeeee;
+    border-bottom: 1px solid #eeeeee;
 }
 
 .quantity-number{
@@ -250,6 +264,10 @@ i {
     justify-content: space-around;
 }
 
+.price-label{
+    color: #eeeeee;
+}
 .overall-price{
+    color: #eeeeee;
     font-weight: bold;
 }
