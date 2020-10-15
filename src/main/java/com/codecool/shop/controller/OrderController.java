@@ -5,7 +5,10 @@ import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.UserDaoMem;
 import com.codecool.shop.model.Order;
+import com.codecool.shop.model.OrderData;
 import com.codecool.shop.model.User;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,6 +40,31 @@ public class OrderController extends HttpServlet {
             throw new NumberFormatException("Invalid format for user id!");
         } catch (NullPointerException exception) {
             throw new NullPointerException("There's no user stored in the system with the given id!");
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        BufferedReader reader = req.getReader();
+        StringBuilder stringBuilder = new StringBuilder();
+        Gson gson = new Gson();
+        OrderDao orderDataStore = OrderDaoMem.getInstance();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            stringBuilder.append(line);
+        }
+        String response = stringBuilder.toString();
+
+        try {
+            OrderData orderData = gson.fromJson(response, OrderData.class);
+            orderDataStore.find(orderData.getOrderId()).saveData(orderData);
+            PrintWriter writer = resp.getWriter();
+            writer.println(orderData.getOrderId());
+        } catch (JsonSyntaxException exception) {
+            throw new JsonSyntaxException("Request body has incorrect format");
+        } catch (NullPointerException exception) {
+            throw new NullPointerException("There's no order stored in the system with the given id!");
         }
     }
 }

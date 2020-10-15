@@ -27,7 +27,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
-    <script type="module" src="/static/js/main.js" defer></script>
+    <script type="module" src="/static/js/checkout/main.js" defer></script>
     <script src="https://kit.fontawesome.com/5c17addabc.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/checkout.css"/>
 </head>
@@ -36,63 +36,50 @@
     <h1 class="header-title">Fantasy Figures Shop</h1>
 </header>
 
-<div id="checkout-container">
-    <div id="user-info-container">
-        <!--        <h3>Shipping Address</h3>-->
-        <!--        <label for="fname"><i class="fa fa-user"></i> First Name</label>-->
-        <!--        <input type="text" id="fname" name="firstname" placeholder="John" th:field="*{username}">-->
-        <!--        <label for="fname"><i class="fa fa-user"></i> Last Name</label>-->
-        <!--        <input type="text" id="lname" name="lastname" placeholder="Doe">-->
-        <!--        <label for="email"><i class="fa fa-envelope"></i> Email</label>-->
-        <!--        <input type="text" id="email" name="email" placeholder="john@example.com">-->
-        <!--        <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>-->
-        <!--        <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">-->
-        <!--        <label for="city"><i class="fa fa-institution"></i> City</label>-->
-        <!--        <input type="text" id="city" name="city" placeholder="Budapest">-->
-        <!--        <label for="city"><i class="fa fa-institution"></i> Country</label>-->
-        <!--        <input type="text" id="country" name="city" placeholder="Hungary">-->
-
-        <div class="row">
-            <div class="col-75">
-                <div class="container">
-                    <form action="#">
-
+<div class="main-div">
+    <div id="checkout-container">
+        <div id="user-info-container">
+            <div class="row">
+                <div class="col-75">
+                    <div class="container">
                         <div class="row">
                             <div class="col-50">
                                 <h3>Billing Address</h3>
                                 <label for="fname"><i class="fa fa-user"></i> First Name</label>
                                 <input type="text" id="fname" name="firstname" placeholder="John">
+                                <div class="error" id="fname-error"></div>
 
                                 <label for="fname"><i class="fa fa-user"></i> Last Name</label>
                                 <input type="text" id="lname" name="lastname" placeholder="Doe">
+                                <div class="error" id="lname-error"></div>
 
                                 <label for="email"><i class="fa fa-envelope"></i> Email</label>
                                 <input type="text" id="email" name="email" placeholder="john@example.com">
+                                <div class="error" id="email-error"></div>
 
                                 <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
                                 <input type="text" id="adr" name="address" placeholder="Random utca 69/A">
+                                <div class="error" id="address-error"></div>
 
                                 <label for="zip"><i class="fas fa-map-pin"></i> Zip</label>
                                 <input type="text" id="zip" name="zip" placeholder="1051">
+                                <div class="error" id="zip-error"></div>
 
                                 <label for="city"><i class="fa fa-institution"></i> City</label>
                                 <input type="text" id="city" name="city" placeholder="Budapest">
+                                <div class="error" id="city-error"></div>
 
                                 <label for="city"><i class="fa fa-institution"></i> Country</label>
                                 <input type="text" id="country" name="city" placeholder="Hungary">
-
-
+                                <div class="error" id="country-error"></div>
                             </div>
                         </div>
-                        <label>
-                            <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
-                        </label>
-                        <input type="submit" value="Continue to payment" class="btn-primary btn">
-                    </form>
+                        <button class="btn-primary btn" id="submit-button">Continue to payment</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
 
     <div id="order-confirm-container">
         <div class="col-25">
@@ -103,14 +90,7 @@
                         <i class="fa fa-shopping-cart"></i>
                         <span id="cart-item-amount" th:text="${itemsInCart}"></span>
                     </div>
-
                 </div>
-<!--                <h4>Cart-->
-<!--                    <span class="price" style="color:black">-->
-<!--                            <i class="fa fa-shopping-cart"></i>-->
-<!--                            <b th:text="${itemsInCart}"></b>-->
-<!--                        </span>-->
-<!--                </h4>-->
                 <div id="line-items">
                     <table class="table">
                         <thead>
@@ -136,13 +116,10 @@
                         <p id="total">Total</p>
                         <p class="price" th:text="${totalPrice}"></p>
                     </div>
-<!--                <p>Total <span class=" price" style="color:black"><b th:text="${totalPrice}"></b></span></p>-->
                 </div>
             </div>
         </div>
     </div>
-
-
     <div th:replace="footer.html :: copy"></div>
 </body>
 </html>

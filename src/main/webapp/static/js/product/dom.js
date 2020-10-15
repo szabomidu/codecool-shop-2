@@ -1,4 +1,4 @@
-import {dataHandler} from "./data_handler.js";
+import {dataHandler} from "../data_handler.js";
 
 export let dom = {
 
@@ -9,7 +9,7 @@ export let dom = {
     }
 }
 
-function redirectToCheckout(orderId){
+function redirectToCheckout(orderId) {
     let checkoutButton = document.querySelector("#checkout");
     checkoutButton.addEventListener('click', () => window.location.replace(`/checkout?id=${orderId}`));
 }
@@ -40,15 +40,18 @@ function fetchProducts() {
 function displayFilterResults(response) {
     const productsContainer = document.querySelector("#products");
     productsContainer.innerHTML = "";
-    let newContent = "";
     if (response.length === 0) {
         const supplierSelectField = document.querySelector("#supplier-select");
         const categorySelectField = document.querySelector("#category-select");
-        newContent += `There is no
+        const containerDiv = document.createElement('div');
+        containerDiv.classList.add('no-result-container');
+        containerDiv.innerHTML = `<i class="fas fa-frown"></i><p>There is no
             ${categorySelectField.options[categorySelectField.selectedIndex].text}
                         in the world of
-            ${supplierSelectField.options[supplierSelectField.selectedIndex].text}`;
+            ${supplierSelectField.options[supplierSelectField.selectedIndex].text}</p>`;
+        productsContainer.appendChild(containerDiv);
     } else {
+        let newContent = "";
         for (let product of response) {
             newContent +=
                 `<div class="col col-sm-12 col-md-6 col-lg-4">
@@ -69,9 +72,9 @@ function displayFilterResults(response) {
                         </div>
                     </div>
                 </div>`
+            productsContainer.innerHTML = newContent;
         }
     }
-    productsContainer.innerHTML = newContent;
     addToCart();
 }
 
@@ -114,7 +117,6 @@ function createOrder(userId, button) {
 }
 
 function addProductToCart(orderId, button) {
-    // const orderId = response.id;
     const productId = button.dataset.productId;
     const body = `${orderId},${productId}`;
 
@@ -160,7 +162,7 @@ function removeFromCart() {
     const lineItemId = lineItem.dataset.id;
     const orderId = document.querySelector(".cart-image").dataset.orderId;
     let body = `${orderId},${lineItemId}`;
-    dataHandler._api_delete('api/lineitem',body,(response) => {
+    dataHandler._api_delete('api/lineitem', body, (response) => {
         document.querySelector("tbody").removeChild(this.closest("tr"));
         updateCartNumber(response);
         updateTotalPrice();
@@ -183,10 +185,12 @@ function updateCartNumber(change) {
     document.querySelector('.cart-counter').innerHTML = (currentNumber + change).toString();
 }
 
-function updateTotalPrice(){
+function updateTotalPrice() {
     let totalValue = 0;
     const totalPrice = document.querySelector('.total-price');
-    document.querySelectorAll('.sub-total-price').forEach(e => {totalValue += parseFloat(e.innerHTML)});
+    document.querySelectorAll('.sub-total-price').forEach(e => {
+        totalValue += parseFloat(e.innerHTML)
+    });
     totalPrice.innerHTML = totalValue.toFixed(1);
 }
 

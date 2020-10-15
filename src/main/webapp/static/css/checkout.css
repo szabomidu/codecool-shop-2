@@ -12,6 +12,8 @@ body {
     justify-content: space-between;
 }
 
+.col-50 h3 {
+    margin: 20px 0;
 
 .table {
     width: 100%;
@@ -32,11 +34,12 @@ body {
 }
 
 .header-container {
+    color: white;
     top: 0;
     position: fixed;
     z-index: 10;
     height: 80px;
-    background-color: #b3e5e5;
+    background-color: cadetblue;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -184,4 +187,34 @@ label {
     justify-content: center;
     align-items: center;
     background-color: #a9a9a9;
+}
+
+.success {
+    font-size: xx-large;
+}
+
+.success-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.check {
+    font-size: 170px;
+    color: green;
+}
+
+.error {
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    font-size: 75%;
+    height: 20px;
+    margin-top: -10px;
+    margin-bottom: 15px;
 }
