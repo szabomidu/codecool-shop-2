@@ -14,7 +14,10 @@ function toggleCartVisibility() {
 
     cartContainer.addEventListener('click', () => {
         let cart = document.querySelector('#cart-content');
-        cart.classList.toggle('hidden');
+        let itemNumber = parseInt(document.querySelector('.cart-counter').innerHTML);
+        if (itemNumber > 0) {
+            cart.classList.toggle('hidden');
+        }
     });
 }
 
@@ -150,9 +153,14 @@ function removeFromCart() {
     const lineItemId = lineItem.dataset.id;
     const orderId = document.querySelector(".cart-image").dataset.orderId;
     let body = `${orderId},${lineItemId}`;
-    dataHandler._api_delete('api/lineitem',body,(response, lineItem) => {
+    dataHandler._api_delete('api/lineitem',body,(response) => {
         document.querySelector("tbody").removeChild(this.closest("tr"));
         updateCartNumber(response);
+        let cart = document.querySelector('#cart-content');
+        let itemNumber = parseInt(document.querySelector('.cart-counter').innerHTML);
+        if (itemNumber === 0) {
+            cart.classList.add('hidden');
+        }
     })
 }
 
