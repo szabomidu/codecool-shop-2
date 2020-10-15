@@ -30,6 +30,7 @@ body {
 
 #checkout-container {
     padding-top: 100px;
+    padding-bottom: 100px;
     display: flex;
     justify-content: space-evenly;
 }
@@ -91,19 +92,15 @@ label {
 }
 
 .btn {
-    background-color: #4CAF50;
-    color: white;
     padding: 12px;
     margin: 10px 0;
-    border: none;
     width: 100%;
-    border-radius: 3px;
     cursor: pointer;
     font-size: 17px;
 }
 
 .btn:hover {
-    background-color: #45a049;
+    background-color: #428bca;
 }
 
 span.price {
@@ -119,4 +116,11 @@ span.price {
     .col-25 {
         margin-bottom: 20px;
     }
+}
+
+.card-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #a9a9a9;
 }
