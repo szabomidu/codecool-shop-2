@@ -59,6 +59,8 @@ public class OrderController extends HttpServlet {
         try {
             OrderData orderData = gson.fromJson(response, OrderData.class);
             orderDataStore.find(orderData.getOrderId()).saveData(orderData);
+            PrintWriter writer = resp.getWriter();
+            writer.println(orderData.getOrderId());
         } catch (JsonSyntaxException exception) {
             throw new JsonSyntaxException("Request body has incorrect format");
         } catch (NullPointerException exception) {
