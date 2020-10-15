@@ -33,8 +33,10 @@ function sendOrderData() {
 }
 
 function displaySuccessText() {
-    document.querySelector('#checkout-container').innerHTML =
-        `<p>Order Data Successfully Saved</p>`;
+    document.querySelector('.main-div').innerHTML =
+        `<div><i class="fas fa-check-circle check"></i></div>
+        <div class="success">Order Data Successfully Saved!</div>`;
+    document.querySelector('.main-div').classList.add("success-container")
 }
 
 function dataIsValid() {
