@@ -9,6 +9,11 @@ export let dom = {
     }
 }
 
+function redirectToCheckout(orderId){
+    let checkoutButton = document.querySelector("#checkout");
+    checkoutButton.addEventListener('click', () => window.location.replace(`/checkout?id=${orderId}`));
+}
+
 function toggleCartVisibility() {
     const cartContainer = document.querySelector('.cart-image');
 
@@ -103,6 +108,7 @@ function createUser(button) {
 function createOrder(userId, button) {
     document.querySelector('.cart-image').dataset.userId = userId;
     dataHandler._api_post(`api/order`, userId, (orderId) => {
+        redirectToCheckout(orderId);
         addProductToCart(orderId, button);
     });
 }
