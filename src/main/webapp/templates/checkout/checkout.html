@@ -103,11 +103,24 @@
                             <b>4</b>
                         </span>
                 </h4>
-
-                <p><a href="#">Product 1</a> <span class="price">$15</span></p>
-                <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-                <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-                <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+                <div id="lineitems">
+                    <table border="1" style="width:300px">
+                        <thead>
+                            <tr>
+                                <th>Test Name</th>
+                            </tr>
+                        </thead>
+                        <tr th:each="smokeTest : ${smokeTests}">
+                            <td>
+                                th:text="${smokeTest.name}">A Smoke Test'
+                            </td>
+                        </tr>
+                    </table>
+                    <p><a href="#">Product 1</a> <span class="price">$15</span></p>
+                    <p><a href="#">Product 2</a> <span class="price">$5</span></p>
+                    <p><a href="#">Product 3</a> <span class="price">$8</span></p>
+                    <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+                </div>
                 <hr>
                 <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
             </div>
