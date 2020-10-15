@@ -133,7 +133,7 @@ function displayLineItemInCart(response) {
             <td>${response.name}</td>
             <td class="quantity"><i class="fas fa-minus minus"></i><span class="quantity-number">${response.quantity}</span><i class="fas fa-plus plus"></i></td>
             <td class="unit-price">${response.unitPrice}</td>
-            <td class="total-price">${response.unitPrice * response.quantity}</td>
+            <td class="sub-total-price">${response.unitPrice * response.quantity}</td>
             <td class="delete-item"><i class="fa fa-trash" aria-hidden="true"></i></td>
         `
         cartTableBody.appendChild(newRow);
@@ -146,6 +146,7 @@ function displayLineItemInCart(response) {
         deleteButton.addEventListener('click', removeFromCart);
     }
     updateCartNumber(1);
+    updateTotalPrice();
 }
 
 function removeFromCart() {
@@ -156,6 +157,7 @@ function removeFromCart() {
     dataHandler._api_delete('api/lineitem',body,(response) => {
         document.querySelector("tbody").removeChild(this.closest("tr"));
         updateCartNumber(response);
+        updateTotalPrice();
         let cart = document.querySelector('#cart-content');
         let itemNumber = parseInt(document.querySelector('.cart-counter').innerHTML);
         if (itemNumber === 0) {
@@ -166,12 +168,20 @@ function removeFromCart() {
 
 function changeQuantity(lineItem, response) {
     lineItem.querySelector('.quantity-number').innerHTML = response.quantity.toString();
-    lineItem.querySelector('.total-price').innerHTML = response.totalPrice.toFixed(1).toString();
+    lineItem.querySelector('.sub-total-price').innerHTML = response.totalPrice.toFixed(1).toString();
+
 }
 
 function updateCartNumber(change) {
     const currentNumber = parseInt(document.querySelector('.cart-counter').innerHTML);
     document.querySelector('.cart-counter').innerHTML = (currentNumber + change).toString();
+}
+
+function updateTotalPrice(){
+    let totalValue = 0;
+    const totalPrice = document.querySelector('.total-price');
+    document.querySelectorAll('.sub-total-price').forEach(e => {totalValue += parseFloat(e.innerHTML)});
+    totalPrice.innerHTML = totalValue.toFixed(1);
 }
 
 function decreaseQuantityFromCart() {
@@ -182,6 +192,7 @@ function decreaseQuantityFromCart() {
         dataHandler._api_put('api/lineitem', body, (response) => {
             changeQuantity(lineItem, response);
             updateCartNumber(-1);
+            updateTotalPrice();
         });
     }
 
@@ -194,5 +205,6 @@ function increaseQuantityFromCart() {
     dataHandler._api_put('api/lineitem', body, (response) => {
         changeQuantity(lineItem, response);
         updateCartNumber(1);
+        updateTotalPrice();
     });
 }
