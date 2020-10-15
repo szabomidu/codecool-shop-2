@@ -49,7 +49,7 @@
                                 <input type="text" id="fname" name="firstname" placeholder="John">
                                 <div class="error" id="fname-error"></div>
 
-                                <label for="fname"><i class="fa fa-user"></i> Last Name</label>
+                                <label for="lname"><i class="fa fa-user"></i> Last Name</label>
                                 <input type="text" id="lname" name="lastname" placeholder="Doe">
                                 <div class="error" id="lname-error"></div>
 
@@ -69,7 +69,7 @@
                                 <input type="text" id="city" name="city" placeholder="Budapest">
                                 <div class="error" id="city-error"></div>
 
-                                <label for="city"><i class="fa fa-institution"></i> Country</label>
+                                <label for="country"><i class="fa fa-institution"></i> Country</label>
                                 <input type="text" id="country" name="city" placeholder="Hungary">
                                 <div class="error" id="country-error"></div>
                             </div>
@@ -81,37 +81,37 @@
         </div>
 
 
-    <div id="order-confirm-container">
-        <div class="col-25">
-            <div id="cart-container">
-                <div class="total-price-container">
-                    <h4 id="cart">Cart</h4>
-                    <div class="cart-item-container">
-                        <i class="fa fa-shopping-cart"></i>
-                        <span id="cart-item-amount" th:text="${itemsInCart}"></span>
+        <div id="order-confirm-container">
+            <div class="col-25">
+                <div id="cart-container">
+                    <div class="total-price-container">
+                        <h4 id="cart">Cart</h4>
+                        <div class="cart-item-container">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span id="cart-item-amount" th:text="${itemsInCart}"></span>
+                        </div>
                     </div>
-                </div>
-                <div id="line-items">
-                    <table class="table">
-                        <thead>
+                    <div id="line-items">
+                        <table class="table">
+                            <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Quantity</th>
                                 <th>Unit Price</th>
                                 <th>Total Price</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr th:each="lineItem : ${lineItems}">
                                 <td class="item-name" th:text="${lineItem.getName()}"></td>
                                 <td th:text="${lineItem.getQuantity()}"></td>
                                 <td th:text="${lineItem.getUnitPrice()}"></td>
                                 <td th:text="${#numbers.formatDecimal(lineItem.getTotalPrice(), 0, 'COMMA', 1, 'POINT')}"></td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <hr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
                     <div class="total-price-container">
                         <p id="total">Total</p>
                         <p class="price" th:text="${totalPrice}"></p>
@@ -121,5 +121,6 @@
         </div>
     </div>
     <div th:replace="footer.html :: copy"></div>
+</div>
 </body>
 </html>
