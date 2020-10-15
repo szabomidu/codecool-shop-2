@@ -21,7 +21,7 @@ Lord Voldemort,9.9f,USD,Noseless snaky-sneaky guy. Defeated by an infant so he's
 Sauron,33.9f,USD,Former president of Middle-Earth. Was not re-elected due to some issues with stolen jewelery,Dark Lord,Lord of the Rings
 Darth Sidious,54.9f,USD,He has power. Un. Limited. Power.,Dark Lord,Star Wars
 Darth Plagueis,34.9f,USD,He's one of the most ironic guys.. He could save others from death but not himself. What a prank,Dark Lord,Star Wars
-Saruman,43,9f,USD,Leader of a giant orc-army. Likes to blow up mountains and to bungee-jumping from high towers,Dark Lord,Lord of the Rings
+Saruman,43.9f,USD,Leader of a giant orc-army. Likes to blow up mountains and to bungee-jumping from high towers,Dark Lord,Lord of the Rings
 General Grievous,24.9f,USD,Bad lunged guy with replacable arms. Abandons ship way too early.,Sith,Star Wars
 Count Dooku,30.9f,USD,Old creepy-looking fellow. Twin brother of Saruman,Sith,Star Wars
 Jamie Lannister,44.9f,USD,One-handsome knight praised and hated by his world. Tends to stab kings and sisters.,Human,Game of Thrones
