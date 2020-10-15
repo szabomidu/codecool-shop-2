@@ -124,3 +124,13 @@ span.price {
     align-items: center;
     background-color: #a9a9a9;
 }
+
+.error {
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    font-size: 75%;
+    height: 20px;
+}

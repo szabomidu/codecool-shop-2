@@ -29,7 +29,7 @@ function sendOrderData() {
         };
         console.log(orderData)
         dataHandler._api_put('/api/order', orderData, (response) => displaySuccessText(response));
-    }
+    } else window.scrollTo(0, 0);
 }
 
 function displaySuccessText() {
