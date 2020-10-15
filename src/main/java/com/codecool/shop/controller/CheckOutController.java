@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Order;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -26,7 +27,9 @@ public class CheckOutController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         int orderId = Integer.parseInt(req.getParameter("id"));
-        context.setVariable("lineitems", orderData.find(orderId));
+        Order order = orderData.find(orderId);
+        System.out.println(order);
+        context.setVariable("lineItems", order);
 
         engine.process("checkout/checkout.html", context, resp.getWriter());
 
