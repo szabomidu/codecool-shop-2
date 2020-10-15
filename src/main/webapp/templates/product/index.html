@@ -35,23 +35,23 @@
 <body>
 <header class="header-container">
     <h1 class="header-title">Fantasy Figures Shop</h1>
-        <div class="cart-box" >
-            <div class="cart-image" th:attr="data-user-id=0, data-order-id=0">
-                <i class="fas fa-shopping-cart"></i>
-                <div class="cart-counter">0</div>
-            </div>
+    <div class="cart-box">
+        <div class="cart-image" th:attr="data-user-id=0, data-order-id=0">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-counter">0</div>
         </div>
+    </div>
 </header>
 
 <div id="cart-content" class="hidden">
-    <div>
+    <div class="table-div">
         <table class="table table-hover">
             <thead>
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Unit price</th>
-                <th scope="col">Total price</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Sub-total</th>
                 <th></th>
             </tr>
             </thead>
@@ -60,6 +60,12 @@
             </tbody>
         </table>
     </div>
+        <div class="cart-footer">
+            <button id="checkout" class="btn btn-primary">Checkout</button>
+            <span class="price-label">Total price:
+            <span class="total-price">7688.6$</span>
+            </span>
+        </div>
 </div>
 
 <div class="container">
@@ -82,7 +88,8 @@
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:src="@{${'/static/img/product_' + prod.getId() + '.jpg'}}"
+                <img class="" src="http://placehold.it/400x250/000/fff"
+                     th:src="@{${'/static/img/product_' + prod.getId() + '.jpg'}}"
                      alt=""/>
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
@@ -94,7 +101,8 @@
                     </div>
                     <div class="card-text">
                         <button class="btn btn-primary to-cart-btn" type="button"
-                                th:attr="data-product-id=${prod.getId()}">Add to cart</button>
+                                th:attr="data-product-id=${prod.getId()}">Add to cart
+                        </button>
                     </div>
                 </div>
             </div>
