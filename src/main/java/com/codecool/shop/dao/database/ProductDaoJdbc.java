@@ -9,6 +9,7 @@ import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -61,36 +62,109 @@ public class ProductDaoJdbc implements ProductDao {
             }
             Supplier supplier = supplierDao.find(rs.getInt(6));
             ProductCategory productCategory  = productCategoryDao.find(rs.getInt(5));
-            Product product = new Product(rs.getString(1), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
+            Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
             product.setId(id);
             return product;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error while finding Product.", e);
         }
     }
 
     @Override
     public void remove(int id) {
+        try(Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM product WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
 
+        } catch (SQLException throwable) {
+            throw new RuntimeException("Error while deleting Product.", throwable);
+        }
     }
 
     @Override
     public List<Product> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, name, description, price, currency, supplier_id, category_id FROM product";
+            PreparedStatement st = conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            List<Product> products = new ArrayList<>();
+
+            while (rs.next()) {
+                Supplier supplier = supplierDao.find(rs.getInt(6));
+                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(5));
+                Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
+                product.setId(rs.getInt(1));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while finding Product.", e);
+        }
     }
 
     @Override
     public List<Product> getBy(Supplier supplier) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, name, description, price, currency, supplier_id, category_id FROM product WHERE supplier_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, supplier.getId());
+            ResultSet rs = st.executeQuery();
+            List<Product> products = new ArrayList<>();
+
+            while (rs.next()) {
+                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(5));
+                Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
+                product.setId(rs.getInt(1));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while finding Product.", e);
+        }
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, name, description, price, currency, supplier_id, category_id FROM product WHERE category_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, productCategory.getId());
+            ResultSet rs = st.executeQuery();
+            List<Product> products = new ArrayList<>();
+
+            while (rs.next()) {
+                Supplier supplier = supplierDao.find(rs.getInt(6));
+                Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
+                product.setId(rs.getInt(1));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while finding Product.", e);
+        }
     }
 
     @Override
     public List<Product> getBy(Supplier supplier, ProductCategory productCategory) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, name, description, price, currency, supplier_id, category_id FROM product WHERE category_id = ? AND supplier_id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, productCategory.getId());
+            st.setInt(2, supplier.getId());
+            ResultSet rs = st.executeQuery();
+            List<Product> products = new ArrayList<>();
+
+            while (rs.next()) {
+                Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
+                product.setId(rs.getInt(1));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while finding Product.", e);
+        }
     }
 }
