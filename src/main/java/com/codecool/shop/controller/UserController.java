@@ -1,7 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.dao.implementation.UserDaoMem;
+import com.codecool.shop.dao.memory.UserDaoMem;
 import com.codecool.shop.model.User;
 
 import javax.servlet.ServletException;
