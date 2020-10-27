@@ -89,6 +89,6 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public User getBy(Order order) {
-        return null;//find(order.getUserId()); TODO: uncomment these lines
+        return find(order.getUserId());
     }
 }
