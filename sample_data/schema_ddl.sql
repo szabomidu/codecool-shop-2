@@ -63,7 +63,7 @@ ALTER TABLE ONLY public.product
     ADD CONSTRAINT fk_supplier_id FOREIGN KEY (supplier_id) REFERENCES public.supplier(id) ON DELETE CASCADE;
 
 ALTER TABLE ONLY public.product
-    ADD CONSTRAINT fk_supplier_id FOREIGN KEY (category_id) REFERENCES public.product_category(id) ON DELETE CASCADE;
+    ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES public.product_category(id) ON DELETE CASCADE;
 
 
 ALTER TABLE ONLY public.order
