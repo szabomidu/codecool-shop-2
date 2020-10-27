@@ -10,6 +10,19 @@ public class OrderData {
     private String city;
     private String country;
 
+    public OrderData() {
+    }
+
+    public OrderData(String firstName, String lastName, String email, String address, int zipCode, String city, String country) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.address = address;
+        this.zipCode = zipCode;
+        this.city = city;
+        this.country = country;
+    }
+
     public int getOrderId() {
         return orderId;
     }
