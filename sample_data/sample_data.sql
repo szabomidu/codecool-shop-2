@@ -22,7 +22,7 @@ INSERT INTO product (name, description, price, currency, supplier_id, category_i
 INSERT INTO product (name, description, price, currency, supplier_id, category_id) VALUES ('Aragorn', 'Heir of Isildur and a bad-ass elf-girl hunter. Greatest warrior of Middle-Earth', 54.9, 'USD', 2, 8);
 INSERT INTO product (name, description, price, currency, supplier_id, category_id) VALUES ('Boromir', 'Do not trust this man! Will probably try to take the ring!!4!', 14.9, 'USD', 2, 8);
 INSERT INTO product (name, description, price, currency, supplier_id, category_id) VALUES ('Ron Weasley', E'Unimportant ginger buddy. Suites well for French people \'cos he eats snails as fast as hell', 19.9, 'USD', 1, 1);
-INSERT INTO product (name, description, price, currency, supplier_id, category_id) VALUES (1, 'The choosen one with the scar on his head', 29.9, 'USD', 1, 1);
+INSERT INTO product (name, description, price, currency, supplier_id, category_id) VALUES ('Harry Potter', 'The choosen one with the scar on his head', 29.9, 'USD', 1, 1);
 INSERT INTO product (name, description, price, currency, supplier_id, category_id) VALUES ('Hermione Granger', E'Crush of every 90\'s kid', 39.9, 'USD', 1, 1);
 INSERT INTO product (name, description, price, currency, supplier_id, category_id) VALUES ('Albus Dumbledore', 'Manipulative old chap but his beard is cool. Probably cousin of Gandalf', 59.9, 'USD', 1, 1);
 INSERT INTO product (name, description, price, currency, supplier_id, category_id) VALUES ('Norbert', E'Fascinating misunderstood creature of Hagrid\'s. May wear some Romanian cultural traces', 24.9, 'USD', 1, 9);
