@@ -51,7 +51,7 @@ public class SupplierDaoJdbc implements SupplierDao {
             supplier.setId(id);
             return supplier;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error while finding Supplier.", e);
         }
     }
 
