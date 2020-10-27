@@ -5,6 +5,7 @@ import com.codecool.shop.model.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -56,7 +57,14 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public void remove(int id) {
-
+        try(Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM \"user\" WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while deleting USer.", e);
+        }
     }
 
     @Override
