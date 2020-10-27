@@ -33,7 +33,7 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public void addAll(User... users) {
-
+        Arrays.stream(users).forEach(this::add);
     }
 
     @Override
