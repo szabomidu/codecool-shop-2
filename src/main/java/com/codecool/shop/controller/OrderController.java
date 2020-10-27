@@ -33,6 +33,7 @@ public class OrderController extends HttpServlet {
             Order newOrder = new Order();
             User user = userDataStore.find(userId);
             user.addOrder(newOrder);
+            newOrder.setUserId(userId);
             int orderId = orderDataStore.add(newOrder);
             PrintWriter out = resp.getWriter();
             out.println(orderId);
