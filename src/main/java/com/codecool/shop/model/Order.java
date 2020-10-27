@@ -11,11 +11,17 @@ public class Order extends BaseModel {
     private int zipCode;
     private String city;
     private String country;
+    private int userId;
 
     private final List<LineItem> lineItems;
 
     public Order() {
         super();
+        this.lineItems = new ArrayList<>();
+    }
+
+    public Order(int userId) {
+        this.userId = userId;
         this.lineItems = new ArrayList<>();
     }
 
@@ -43,5 +49,13 @@ public class Order extends BaseModel {
         zipCode = orderData.getZipCode();
         city = orderData.getCity();
         country = orderData.getCountry();
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

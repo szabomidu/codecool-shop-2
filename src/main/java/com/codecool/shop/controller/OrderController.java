@@ -30,7 +30,7 @@ public class OrderController extends HttpServlet {
 
         try {
             int userId = Integer.parseInt(reader.readLine());
-            Order newOrder = new Order();
+            Order newOrder = new Order(userId);
             User user = userDataStore.find(userId);
             user.addOrder(newOrder);
             int orderId = orderDataStore.add(newOrder);
