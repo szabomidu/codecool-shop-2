@@ -5,6 +5,7 @@ import com.codecool.shop.model.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class OrderDaoJdbc implements OrderDao {
             order.setId(id);
             return id;
         } catch (SQLException throwable) {
-            throw new RuntimeException("Error while adding new Product.", throwable);
+            throw new RuntimeException("Error while adding new Order.", throwable);
         }
     }
 
@@ -53,17 +54,42 @@ public class OrderDaoJdbc implements OrderDao {
             order.saveData(orderData);
             return order;
         } catch (SQLException e) {
-            throw new RuntimeException("Error while finding Product.", e);
+            throw new RuntimeException("Error while finding Order.", e);
         }
     }
 
     @Override
     public void remove(int id) {
+        try(Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM order WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            st.executeUpdate();
 
+        } catch (SQLException throwable) {
+            throw new RuntimeException("Error while deleting Order.", throwable);
+        }
     }
 
     @Override
     public List<Order> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, user_id, first_name, last_name, email, address, zip_code, city, country FROM order";
+            PreparedStatement st = conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            List<Order> orders = new ArrayList<>();
+
+            while (rs.next()) {
+                Order order = new Order(rs.getInt(2));
+                order.setId(rs.getInt(1));
+                OrderData orderData = new OrderData(rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9));
+                order.saveData(orderData);
+                orders.add(order);
+            }
+            return orders;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while finding Order.", e);
+        }
     }
 }
