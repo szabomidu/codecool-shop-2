@@ -14,6 +14,8 @@ import java.util.List;
 public class LineItemDaoJdbc implements LineItemDao {
 
     private DataSource dataSource = ConnectionHandler.getDataSource();
+    private OrderDao orderDao = new OrderDaoJdbc();
+    private ProductDao productDao = new ProductDaoJdbc();
 
     public LineItemDaoJdbc() throws SQLException {
     }
@@ -52,8 +54,8 @@ public class LineItemDaoJdbc implements LineItemDao {
             if (!rs.next()) {
                 return null;
             }
-            Order order = OrderDao.find(rs.getInt(2));
-            Product product = ProductDao.find(rs.getInt(3));
+            Order order = orderDao.find(rs.getInt(2));
+            Product product = productDao.find(rs.getInt(3));
             LineItem lineItem = new LineItem(product, order.getId());
             product.setId(id);
             return lineItem;
@@ -85,8 +87,8 @@ public class LineItemDaoJdbc implements LineItemDao {
             List<LineItem> lineItems = new ArrayList<>();
 
             while (rs.next()) {
-                Order order = OrderDao.find(rs.getInt(2));
-                Product product = ProductDao.find(rs.getInt(3));
+                Order order = orderDao.find(rs.getInt(2));
+                Product product = productDao.find(rs.getInt(3));
                 LineItem lineItem = new LineItem(product, order.getId());
                 lineItem.setId(rs.getInt(1));
                 lineItems.add(lineItem);
