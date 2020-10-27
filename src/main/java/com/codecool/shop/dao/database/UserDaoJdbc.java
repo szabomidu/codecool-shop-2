@@ -69,7 +69,22 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public List<User> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, name FROM \"user\"";
+            PreparedStatement st = conn.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+
+            List<User> users = new ArrayList<>();
+
+            while (rs.next()) {
+                User user = new User(rs.getString(2));
+                user.setId(rs.getInt(1));
+                users.add(user);
+            }
+            return users;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while finding User.", e);
+        }
     }
 
     @Override
