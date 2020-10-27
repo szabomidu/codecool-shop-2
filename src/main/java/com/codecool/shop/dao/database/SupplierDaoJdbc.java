@@ -5,6 +5,7 @@ import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class SupplierDaoJdbc implements SupplierDao {
@@ -33,7 +34,7 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public void addAll(Supplier... suppliers) {
-
+        Arrays.stream(suppliers).forEach(this::add);
     }
 
     @Override
