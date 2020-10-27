@@ -23,8 +23,8 @@ public class LineItemDaoJdbc implements LineItemDao {
         try(Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO lineitem (order_id, product_id, total_price, unit_price, quantity) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            st.setInt(1, lineItem.getOrder().getId());
-            st.setInt(2, lineItem.getPoduct().getId());
+            st.setInt(1, lineItem.getOrderId());
+            st.setInt(2, lineItem.getProductId());
             st.setFloat(3, lineItem.getTotalPrice());
             st.setFloat(4, lineItem.getUnitPrice());
             st.setInt(5, lineItem.getQuantity());
@@ -49,12 +49,12 @@ public class LineItemDaoJdbc implements LineItemDao {
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            if (!rs.next()) { // first row was not found == no data was returned by the query
+            if (!rs.next()) {
                 return null;
             }
             Order order = OrderDao.find(rs.getInt(2));
             Product product = ProductDao.find(rs.getInt(3));
-            LineItem lineItem = new LineItem(product);
+            LineItem lineItem = new LineItem(product, order.getId());
             product.setId(id);
             return lineItem;
         } catch (SQLException e) {
@@ -87,7 +87,7 @@ public class LineItemDaoJdbc implements LineItemDao {
             while (rs.next()) {
                 Order order = OrderDao.find(rs.getInt(2));
                 Product product = ProductDao.find(rs.getInt(3));
-                LineItem lineItem = new LineItem(product);
+                LineItem lineItem = new LineItem(product, order.getId());
                 lineItem.setId(rs.getInt(1));
                 lineItems.add(lineItem);
             }
