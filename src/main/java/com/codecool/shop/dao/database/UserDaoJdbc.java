@@ -1,11 +1,11 @@
 package com.codecool.shop.dao.database;
 
 import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.model.Order;
-import com.codecool.shop.model.User;
+import com.codecool.shop.model.*;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserDaoJdbc implements UserDao {
@@ -27,7 +27,7 @@ public class UserDaoJdbc implements UserDao {
             user.setId(id);
             return id;
         } catch (SQLException throwable) {
-            throw new RuntimeException("Error while adding new Product.", throwable);
+            throw new RuntimeException("Error while adding new User.", throwable);
         }
     }
 
