@@ -66,7 +66,7 @@ public class SupplierDaoJdbc implements SupplierDao {
             if (!rs.next()) { // first row was not found == no data was returned by the query
                 return null;
             }
-            Supplier supplier = new Supplier(rs.getString(1), rs.getString(2));
+            Supplier supplier = new Supplier(rs.getString(2), rs.getString(3));
             supplier.setId(rs.getInt(1));
             return supplier;
         } catch (SQLException e) {
