@@ -38,7 +38,20 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public User find(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, name FROM \"user\" WHERE id = ?";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (!rs.next()) { // first row was not found == no data was returned by the query
+                return null;
+            }
+            User user = new User(rs.getString(2));
+            user.setId(id);
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while finding User.", e);
+        }
     }
 
     @Override
