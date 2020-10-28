@@ -15,9 +15,17 @@ import java.util.List;
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     private DataSource dataSource = ConnectionHandler.getDataSource();
     private ProductCategoryDao productCategoryDao;
+    private static ProductCategoryDaoJdbc instance = null;
 
 
-    public ProductCategoryDaoJdbc() throws SQLException {
+    private ProductCategoryDaoJdbc() throws SQLException {
+    }
+
+    public static ProductCategoryDao getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new ProductCategoryDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
