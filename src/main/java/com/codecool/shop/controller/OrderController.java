@@ -2,8 +2,8 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.dao.memory.OrderDaoMem;
-import com.codecool.shop.dao.memory.UserDaoMem;
+import com.codecool.shop.dao.database.OrderDaoJdbc;
+import com.codecool.shop.dao.database.UserDaoJdbc;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.OrderData;
 import com.codecool.shop.model.User;
@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/api/order")
 public class OrderController extends HttpServlet {
@@ -25,10 +26,10 @@ public class OrderController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
-        OrderDao orderDataStore = OrderDaoMem.getInstance();
-        UserDao userDataStore = UserDaoMem.getInstance();
-
+        OrderDao orderDataStore;
         try {
+            orderDataStore = OrderDaoJdbc.getInstance();
+            UserDao userDataStore = UserDaoJdbc.getInstance();
             int userId = Integer.parseInt(reader.readLine());
             Order newOrder = new Order(userId);
             User user = userDataStore.find(userId);
@@ -40,6 +41,8 @@ public class OrderController extends HttpServlet {
             throw new NumberFormatException("Invalid format for user id!");
         } catch (NullPointerException exception) {
             throw new NullPointerException("There's no user stored in the system with the given id!");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
@@ -48,15 +51,14 @@ public class OrderController extends HttpServlet {
         BufferedReader reader = req.getReader();
         StringBuilder stringBuilder = new StringBuilder();
         Gson gson = new Gson();
-        OrderDao orderDataStore = OrderDaoMem.getInstance();
-
-        String line;
-        while ((line = reader.readLine()) != null) {
-            stringBuilder.append(line);
-        }
-        String response = stringBuilder.toString();
-
+        OrderDao orderDataStore;
         try {
+            orderDataStore = OrderDaoJdbc.getInstance();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            String response = stringBuilder.toString();
             OrderData orderData = gson.fromJson(response, OrderData.class);
             Order order = orderDataStore.find(orderData.getOrderId());
             order.saveData(orderData);
@@ -67,6 +69,8 @@ public class OrderController extends HttpServlet {
             throw new JsonSyntaxException("Request body has incorrect format");
         } catch (NullPointerException exception) {
             throw new NullPointerException("There's no order stored in the system with the given id!");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }
