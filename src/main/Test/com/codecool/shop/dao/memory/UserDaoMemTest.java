@@ -49,6 +49,8 @@ class UserDaoMemTest {
     @Test
     @Order(4)
     void remove() {
+        userDao.remove(2);
+        assertEquals(2, userDao.getAll().size());
     }
 
     @Test
