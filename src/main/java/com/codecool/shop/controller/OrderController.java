@@ -58,7 +58,9 @@ public class OrderController extends HttpServlet {
 
         try {
             OrderData orderData = gson.fromJson(response, OrderData.class);
-            orderDataStore.find(orderData.getOrderId()).saveData(orderData);
+            Order order = orderDataStore.find(orderData.getOrderId());
+            order.saveData(orderData);
+            orderDataStore.update(order);
             PrintWriter writer = resp.getWriter();
             writer.println(orderData.getOrderId());
         } catch (JsonSyntaxException exception) {

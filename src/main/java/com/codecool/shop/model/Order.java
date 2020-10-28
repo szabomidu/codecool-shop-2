@@ -58,4 +58,32 @@ public class Order extends BaseModel {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
 }

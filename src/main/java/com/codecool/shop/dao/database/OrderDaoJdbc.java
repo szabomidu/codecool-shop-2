@@ -92,4 +92,26 @@ public class OrderDaoJdbc implements OrderDao {
             throw new RuntimeException("Error while finding Order.", e);
         }
     }
+
+    @Override
+    public void update(Order order) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String query = "UPDATE order SET first_name = ?, last_name = ?, email = ?, address = ?, zip_code = ?, city = ?, country = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setString(1, order.getFirstName());
+            statement.setString(2, order.getLastName());
+            statement.setString(3, order.getEmail());
+            statement.setString(4, order.getAddress());
+            statement.setInt(5, order.getZipCode());;
+            statement.setString(6, order.getCity());
+            statement.setString(7, order.getCountry());
+            statement.setInt(8, order.getId());
+
+            statement.executeUpdate();
+        } catch (SQLException throwable) {
+            throw new RuntimeException("Error while updating order in table", throwable);
+        }
+    }
 }
