@@ -39,6 +39,14 @@ class ProductDaoMemTest {
     }
 
     @Test
+    void add_addProduct_setsProperIdToProduct() {
+        productDaoMem.add(product);
+        doCallRealMethod().when(product).setId(data.size() + 1);
+        Assertions.assertEquals(product.getId(),  data.size());
+    }
+
+
+    @Test
     void addAll() {
     }
 
