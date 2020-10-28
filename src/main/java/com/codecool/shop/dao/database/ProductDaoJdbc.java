@@ -16,8 +16,8 @@ import java.util.List;
 public class ProductDaoJdbc implements ProductDao {
 
     private final DataSource dataSource = ConnectionHandler.getDataSource();
-    private final SupplierDao supplierDao = new SupplierDaoJdbc();
-    private final ProductCategoryDao productCategoryDao = new ProductCategoryDaoJdbc();
+    private final SupplierDao supplierDao = SupplierDaoJdbc.getInstance();
+    private final ProductCategoryDao productCategoryDao = ProductCategoryDaoJdbc.getInstance();
     private static ProductDaoJdbc instance = null;
 
 
