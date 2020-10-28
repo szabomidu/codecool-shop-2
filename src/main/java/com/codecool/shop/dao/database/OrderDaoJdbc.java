@@ -27,7 +27,7 @@ public class OrderDaoJdbc implements OrderDao {
     @Override
     public int add(Order order) {
         try(Connection conn = dataSource.getConnection()) {
-            String sql = "INSERT INTO order (user_id) VALUES (?)";
+            String sql = "INSERT INTO \"order\" (user_id) VALUES (?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setInt(1, order.getUserId());
             st.executeUpdate();
@@ -49,7 +49,7 @@ public class OrderDaoJdbc implements OrderDao {
     @Override
     public Order find(int id) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT id, user_id, first_name, last_name, email, address, zip_code, city, country FROM order WHERE id = ?";
+            String sql = "SELECT id, user_id, first_name, last_name, email, address, zip_code, city, country FROM \"order\" WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
@@ -69,7 +69,7 @@ public class OrderDaoJdbc implements OrderDao {
     @Override
     public void remove(int id) {
         try(Connection conn = dataSource.getConnection()) {
-            String sql = "DELETE FROM order WHERE id = ?";
+            String sql = "DELETE FROM \"order\" WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             st.executeUpdate();
@@ -82,7 +82,7 @@ public class OrderDaoJdbc implements OrderDao {
     @Override
     public List<Order> getAll() {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT id, user_id, first_name, last_name, email, address, zip_code, city, country FROM order";
+            String sql = "SELECT id, user_id, first_name, last_name, email, address, zip_code, city, country FROM \"order\"";
             PreparedStatement st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
 
@@ -105,7 +105,7 @@ public class OrderDaoJdbc implements OrderDao {
     public void update(Order order) {
         try {
             Connection connection = dataSource.getConnection();
-            String query = "UPDATE order SET first_name = ?, last_name = ?, email = ?, address = ?, zip_code = ?, city = ?, country = ? WHERE id = ?";
+            String query = "UPDATE \"order\" SET first_name = ?, last_name = ?, email = ?, address = ?, zip_code = ?, city = ?, country = ? WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
 
             statement.setString(1, order.getFirstName());

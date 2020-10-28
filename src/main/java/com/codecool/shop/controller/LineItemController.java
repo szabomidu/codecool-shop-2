@@ -44,9 +44,9 @@ public class LineItemController extends HttpServlet {
 
             Product product = productDataStore.find(productId);
             Order order = orderDataStore.find(orderId);
-            LineItem lineItem = order.findLineItemForProduct(product);
+            LineItem lineItem = lineItemDataStore.getBy(order, product);
             if (lineItem != null) {
-                lineItem.changeQuantity(1);
+                lineItemDataStore.update(lineItem, 1);
             } else {
                 lineItem = new LineItem(product, order.getId());
                 lineItemDataStore.add(lineItem);
@@ -69,7 +69,7 @@ public class LineItemController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
-        LineItemDao lineItemDataStore = null;
+        LineItemDao lineItemDataStore;
         try {
             lineItemDataStore = LineItemDaoJdbc.getInstance();
             Gson gson = new Gson();
@@ -79,7 +79,7 @@ public class LineItemController extends HttpServlet {
             int quantityChange = Integer.parseInt(numbers[1]);
 
             LineItem lineItem = lineItemDataStore.find(lineItemId);
-            lineItem.changeQuantity(quantityChange);
+            lineItemDataStore.update(lineItem, quantityChange);
 
             PrintWriter out = resp.getWriter();
             String responseJSON = gson.toJson(lineItem);

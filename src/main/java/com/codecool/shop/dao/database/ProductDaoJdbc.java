@@ -69,7 +69,7 @@ public class ProductDaoJdbc implements ProductDao {
                 return null;
             }
             Supplier supplier = supplierDao.find(rs.getInt(6));
-            ProductCategory productCategory  = productCategoryDao.find(rs.getInt(5));
+            ProductCategory productCategory  = productCategoryDao.find(rs.getInt(7));
             Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
             product.setId(id);
             return product;
@@ -102,7 +102,7 @@ public class ProductDaoJdbc implements ProductDao {
 
             while (rs.next()) {
                 Supplier supplier = supplierDao.find(rs.getInt(6));
-                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(5));
+                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(7));
                 Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
                 product.setId(rs.getInt(1));
                 products.add(product);
@@ -123,7 +123,7 @@ public class ProductDaoJdbc implements ProductDao {
             List<Product> products = new ArrayList<>();
 
             while (rs.next()) {
-                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(5));
+                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(7));
                 Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
                 product.setId(rs.getInt(1));
                 products.add(product);
