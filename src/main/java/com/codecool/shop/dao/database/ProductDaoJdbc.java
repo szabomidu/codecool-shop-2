@@ -18,9 +18,18 @@ public class ProductDaoJdbc implements ProductDao {
     private final DataSource dataSource = ConnectionHandler.getDataSource();
     private final SupplierDao supplierDao = new SupplierDaoJdbc();
     private final ProductCategoryDao productCategoryDao = new ProductCategoryDaoJdbc();
+    private static ProductDaoJdbc instance = null;
 
 
-    public ProductDaoJdbc() throws SQLException {
+
+    private ProductDaoJdbc() throws SQLException {
+    }
+
+    public static ProductDaoJdbc getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new ProductDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
