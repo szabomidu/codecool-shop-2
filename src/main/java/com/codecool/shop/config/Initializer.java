@@ -21,13 +21,13 @@ public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        try {
-            readSuppliers();
-            readCategories();
-            readProducts();
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            readSuppliers();
+//            readCategories();
+//            readProducts();
+//        } catch (IOException | URISyntaxException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void readSuppliers() throws IOException, URISyntaxException {

@@ -2,6 +2,8 @@ package com.codecool.shop.dao.memory;
 
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.model.LineItem;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.model.Product;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +47,23 @@ public class LineItemDaoMem implements LineItemDao {
     }
 
     @Override
+    public void update(LineItem lineItem, int change) {
+            if (lineItem.getQuantity() + change <= 0) throw new IllegalArgumentException();
+            lineItem.changeQuantity(change);
+    }
+
+    @Override
     public List<LineItem> getAll() {
         return data;
+    }
+
+    @Override
+    public LineItem getBy(Order order, Product product) {
+        return order.findLineItemForProduct(product);
+    }
+
+    @Override
+    public List<LineItem> getBy(Order order) {
+        return order.getLineItems();
     }
 }
