@@ -16,8 +16,16 @@ public class LineItemDaoJdbc implements LineItemDao {
     private DataSource dataSource = ConnectionHandler.getDataSource();
     private OrderDao orderDao = OrderDaoJdbc.getInstance();
     private ProductDao productDao = ProductDaoJdbc.getInstance();
+    private static LineItemDaoJdbc instance = null;
 
-    public LineItemDaoJdbc() throws SQLException {
+    private LineItemDaoJdbc() throws SQLException {
+    }
+
+    public static LineItemDao getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new LineItemDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
