@@ -31,7 +31,11 @@ class ProductDaoMemTest {
     }
 
     @Test
-    void add() {
+    void add_addProduct_listSizeIncreases() {
+        int originalSize = data.size();
+        productDaoMem.add(product);
+        when(data.add(product)).thenCallRealMethod();
+        Assertions.assertEquals(originalSize + 1,  data.size());
     }
 
     @Test
