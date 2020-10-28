@@ -61,4 +61,9 @@ public class LineItemDaoMem implements LineItemDao {
     public LineItem getBy(Order order, Product product) {
         return order.findLineItemForProduct(product);
     }
+
+    @Override
+    public List<LineItem> getBy(Order order) {
+        return order.getLineItems();
+    }
 }

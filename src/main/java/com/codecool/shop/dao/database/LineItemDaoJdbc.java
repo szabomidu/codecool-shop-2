@@ -129,6 +129,29 @@ public class LineItemDaoJdbc implements LineItemDao {
     }
 
     @Override
+    public List<LineItem> getBy(Order order) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, quantity, product_id FROM lineitem WHERE order_id = ? ";
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.setInt(1, order.getId());
+
+            ResultSet rs = st.executeQuery();
+            List<LineItem> lineItems = new ArrayList<>();
+
+            while (rs.next()) {
+                Product product = productDao.find(rs.getInt(3));
+                LineItem lineItem = new LineItem(product, order.getId());
+                lineItem.setId(rs.getInt(1));
+                lineItem.setQuantity(rs.getInt(2));
+                lineItems.add(lineItem);
+            }
+            return lineItems;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while finding LineItem.", e);
+        }
+    }
+
+    @Override
     public void update(LineItem lineItem, int change) {
         try {
             Connection connection = dataSource.getConnection();

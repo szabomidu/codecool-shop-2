@@ -15,4 +15,5 @@ public interface LineItemDao {
 
     List<LineItem> getAll();
     LineItem getBy(Order order, Product product);
+    List<LineItem> getBy(Order order);
 }
