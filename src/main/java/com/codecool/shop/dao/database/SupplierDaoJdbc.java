@@ -13,8 +13,16 @@ public class SupplierDaoJdbc implements SupplierDao {
 
 
     private DataSource dataSource = ConnectionHandler.getDataSource();
+    private static SupplierDaoJdbc instance = null;
 
-    public SupplierDaoJdbc() throws SQLException {
+    private SupplierDaoJdbc() throws SQLException {
+    }
+
+    public static SupplierDao getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new SupplierDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
