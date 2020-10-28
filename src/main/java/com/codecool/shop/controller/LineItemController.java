@@ -43,7 +43,7 @@ public class LineItemController extends HttpServlet {
             if (lineItem != null){
                 lineItem.changeQuantity(1);
             } else {
-                lineItem = new LineItem(product);
+                lineItem = new LineItem(product, order.getId());
                 lineItemDataStore.add(lineItem);
                 order.addLineItem(lineItem);
             }
