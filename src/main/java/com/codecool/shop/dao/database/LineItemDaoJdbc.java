@@ -14,8 +14,8 @@ import java.util.List;
 public class LineItemDaoJdbc implements LineItemDao {
 
     private DataSource dataSource = ConnectionHandler.getDataSource();
-    private OrderDao orderDao = new OrderDaoJdbc();
-    private ProductDao productDao = new ProductDaoJdbc();
+    private OrderDao orderDao = OrderDaoJdbc.getInstance();
+    private ProductDao productDao = ProductDaoJdbc.getInstance();
 
     public LineItemDaoJdbc() throws SQLException {
     }
