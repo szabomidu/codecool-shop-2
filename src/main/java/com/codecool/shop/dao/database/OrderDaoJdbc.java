@@ -12,8 +12,16 @@ import java.util.List;
 public class OrderDaoJdbc implements OrderDao {
 
     private final DataSource dataSource = ConnectionHandler.getDataSource();
+    private static OrderDaoJdbc instance = null;
 
-    public OrderDaoJdbc() throws SQLException {
+    private OrderDaoJdbc() throws SQLException {
+    }
+
+    public static OrderDaoJdbc getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new OrderDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
