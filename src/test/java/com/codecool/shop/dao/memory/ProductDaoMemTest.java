@@ -48,10 +48,18 @@ class ProductDaoMemTest {
 
     @Test
     void addAll() {
+//        int numberOfCalls = 2;
+//        mockProductDaoMem.addAll(product, product);
+//        verify(mockProductDaoMem, times(numberOfCalls)).add(product);
+//        doCallRealMethod().when(mockProductDaoMem).addAll(product, product);
     }
 
     @Test
     void find() {
+        productDaoMem.add(product);
+        doCallRealMethod().when(product).setId(data.size() + 1);
+        when(data.add(product)).thenCallRealMethod();
+        Assertions.assertEquals(Product.class, productDaoMem.find(data.size() + 1).getClass());
     }
 
     @Test
