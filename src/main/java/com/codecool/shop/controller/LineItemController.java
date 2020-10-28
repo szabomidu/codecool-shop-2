@@ -3,6 +3,9 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.database.LineItemDaoJdbc;
+import com.codecool.shop.dao.database.OrderDaoJdbc;
+import com.codecool.shop.dao.database.ProductDaoJdbc;
 import com.codecool.shop.dao.memory.LineItemDaoMem;
 import com.codecool.shop.dao.memory.OrderDaoMem;
 import com.codecool.shop.dao.memory.ProductDaoMem;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = "/api/lineitem")
 public class LineItemController extends HttpServlet {
@@ -26,12 +30,13 @@ public class LineItemController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
-        LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        OrderDao orderDataStore = OrderDaoMem.getInstance();
-        Gson gson = new Gson();
-
+        LineItemDao lineItemDataStore;
         try {
+            lineItemDataStore = LineItemDaoJdbc.getInstance();
+            ProductDao productDataStore = ProductDaoJdbc.getInstance();
+            OrderDao orderDataStore = OrderDaoJdbc.getInstance();
+            Gson gson = new Gson();
+
             String line = reader.readLine();
             String[] ids = line.substring(1, line.length() - 1).split(",");
             int orderId = Integer.parseInt(ids[0]);
@@ -40,7 +45,7 @@ public class LineItemController extends HttpServlet {
             Product product = productDataStore.find(productId);
             Order order = orderDataStore.find(orderId);
             LineItem lineItem = order.findLineItemForProduct(product);
-            if (lineItem != null){
+            if (lineItem != null) {
                 lineItem.changeQuantity(1);
             } else {
                 lineItem = new LineItem(product, order.getId());
@@ -56,16 +61,18 @@ public class LineItemController extends HttpServlet {
             throw new NumberFormatException("Invalid format for integer!");
         } catch (NullPointerException exception) {
             throw new NullPointerException("There's no order or product stored in the system with the given id!");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
-        LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
-        Gson gson = new Gson();
-
+        LineItemDao lineItemDataStore = null;
         try {
+            lineItemDataStore = LineItemDaoJdbc.getInstance();
+            Gson gson = new Gson();
             String line = reader.readLine();
             String[] numbers = line.substring(1, line.length() - 1).split(",");
             int lineItemId = Integer.parseInt(numbers[0]);
@@ -77,7 +84,6 @@ public class LineItemController extends HttpServlet {
             PrintWriter out = resp.getWriter();
             String responseJSON = gson.toJson(lineItem);
             out.println(responseJSON);
-
         } catch (ArrayIndexOutOfBoundsException exception) {
             throw new ArrayIndexOutOfBoundsException("Not enough ID provided!");
         } catch (NumberFormatException exception) {
@@ -86,16 +92,18 @@ public class LineItemController extends HttpServlet {
             throw new NullPointerException("There's no line item stored in the system with the given id!");
         } catch (IllegalArgumentException exception) {
             throw new IllegalArgumentException("Quantity cannot decrease below zero");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
-        LineItemDao lineItemDataStore = LineItemDaoMem.getInstance();
-        OrderDao orderDataStore = OrderDaoMem.getInstance();
-
+        LineItemDao lineItemDataStore;
         try {
+            lineItemDataStore = LineItemDaoJdbc.getInstance();
+            OrderDao orderDataStore = OrderDaoJdbc.getInstance();
             String line = reader.readLine();
             String[] numbers = line.substring(1, line.length() - 1).split(",");
             int orderId = Integer.parseInt(numbers[0]);
@@ -115,6 +123,8 @@ public class LineItemController extends HttpServlet {
             throw new NumberFormatException("Invalid format for integer!");
         } catch (NullPointerException exception) {
             throw new NullPointerException("There's no line item or order stored in the system with the given id!");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }
