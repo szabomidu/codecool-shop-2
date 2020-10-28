@@ -2,6 +2,7 @@ package com.codecool.shop.dao.memory;
 
 import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.model.User;
+import com.codecool.shop.model.Order;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,51 +15,56 @@ import static org.mockito.Mockito.when;
 class UserDaoMemTest {
 
     private static UserDao userDao;
+    private static Order order1;
     private static User user1;
     private static User user2;
+    private static User user3;
 
     @BeforeAll
     static void setup() {
         userDao = UserDaoMem.getInstance();
+        order1 = mock(Order.class);
         user1 = mock(User.class);
-        user1.setId(1);
         user2 = mock(User.class);
-        user1.setId(2);
+        user3 = mock(User.class);
     }
 
     @Test
-    @Order(1)
+    @org.junit.jupiter.api.Order(1)
     void add() {
-        when(userDao.add(user1)).thenReturn(1);
+        userDao.add(user1);
         assertEquals(1, userDao.getAll().size());
     }
 
     @Test
-    @Order(2)
+    @org.junit.jupiter.api.Order(2)
     void addAll() {
-        userDao.addAll(user1, user2);
+        userDao.addAll(user2, user3);
         assertEquals(3, userDao.getAll().size());
     }
 
     @Test
-    @Order(3)
+    @org.junit.jupiter.api.Order(3)
     void find() {
-        assertEquals(user1, userDao.find(1));
+        User expectedUser = userDao.find(0);
+        assertEquals(user1, expectedUser);
     }
 
     @Test
-    @Order(4)
+    @org.junit.jupiter.api.Order(4)
     void remove() {
-        userDao.remove(2);
+        userDao.remove(0);
         assertEquals(2, userDao.getAll().size());
     }
 
     @Test
+    @org.junit.jupiter.api.Order(5)
     void getAll() {
-
+        assertEquals(2, userDao.getAll().size());
     }
 
     @Test
+    @org.junit.jupiter.api.Order(6)
     void getBy() {
     }
 }
