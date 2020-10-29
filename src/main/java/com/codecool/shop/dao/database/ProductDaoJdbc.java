@@ -16,11 +16,20 @@ import java.util.List;
 public class ProductDaoJdbc implements ProductDao {
 
     private final DataSource dataSource = ConnectionHandler.getDataSource();
-    private final SupplierDao supplierDao = new SupplierDaoJdbc();
-    private final ProductCategoryDao productCategoryDao = new ProductCategoryDaoJdbc();
+    private final SupplierDao supplierDao = SupplierDaoJdbc.getInstance();
+    private final ProductCategoryDao productCategoryDao = ProductCategoryDaoJdbc.getInstance();
+    private static ProductDaoJdbc instance = null;
 
 
-    public ProductDaoJdbc() throws SQLException {
+
+    private ProductDaoJdbc() throws SQLException {
+    }
+
+    public static ProductDaoJdbc getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new ProductDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
@@ -60,7 +69,7 @@ public class ProductDaoJdbc implements ProductDao {
                 return null;
             }
             Supplier supplier = supplierDao.find(rs.getInt(6));
-            ProductCategory productCategory  = productCategoryDao.find(rs.getInt(5));
+            ProductCategory productCategory  = productCategoryDao.find(rs.getInt(7));
             Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
             product.setId(id);
             return product;
@@ -93,7 +102,7 @@ public class ProductDaoJdbc implements ProductDao {
 
             while (rs.next()) {
                 Supplier supplier = supplierDao.find(rs.getInt(6));
-                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(5));
+                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(7));
                 Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
                 product.setId(rs.getInt(1));
                 products.add(product);
@@ -114,7 +123,7 @@ public class ProductDaoJdbc implements ProductDao {
             List<Product> products = new ArrayList<>();
 
             while (rs.next()) {
-                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(5));
+                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(7));
                 Product product = new Product(rs.getString(2), rs.getFloat(4), rs.getString(5), rs.getString(3), productCategory, supplier);
                 product.setId(rs.getInt(1));
                 products.add(product);

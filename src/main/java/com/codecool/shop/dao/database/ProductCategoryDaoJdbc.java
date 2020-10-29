@@ -14,10 +14,17 @@ import java.util.List;
 
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     private DataSource dataSource = ConnectionHandler.getDataSource();
-    private ProductCategoryDao productCategoryDao;
+    private static ProductCategoryDaoJdbc instance = null;
 
 
-    public ProductCategoryDaoJdbc() throws SQLException {
+    private ProductCategoryDaoJdbc() throws SQLException {
+    }
+
+    public static ProductCategoryDao getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new ProductCategoryDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
@@ -70,7 +77,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             if (!rs.next()) { // first row was not found == no data was returned by the query
                 return null;
             }
-            ProductCategory productCategory  = productCategoryDao.find(rs.getInt(1));
+            ProductCategory productCategory  = find(rs.getInt(1));
             return productCategory;
         } catch (SQLException e) {
             throw new RuntimeException("Error while finding Category by name.", e);
@@ -92,14 +99,14 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     @Override
     public List<ProductCategory> getAll() {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT id, name, description FROM product";
+            String sql = "SELECT id, name, description FROM product_category";
             PreparedStatement st = conn.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
 
             List<ProductCategory> categories = new ArrayList<>();
 
             while (rs.next()) {
-                ProductCategory productCategory  = productCategoryDao.find(rs.getInt(1));
+                ProductCategory productCategory  = find(rs.getInt(1));
                 categories.add(productCategory);
             }
             return categories;

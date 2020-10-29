@@ -11,8 +11,16 @@ import java.util.List;
 
 public class UserDaoJdbc implements UserDao {
     private final DataSource dataSource = ConnectionHandler.getDataSource();
+    private static UserDaoJdbc instance = null;
 
-    public UserDaoJdbc() throws SQLException {
+    private UserDaoJdbc() throws SQLException {
+    }
+
+    public static UserDao getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new UserDaoJdbc();
+        }
+        return instance;
     }
 
     @Override
