@@ -46,13 +46,10 @@ class ProductDaoMemTest {
         Assertions.assertEquals(1, product.getId());
     }
 
-
     @Test
-    void addAll() {
-//        int numberOfCalls = 2;
-//        mockProductDaoMem.addAll(product, product);
-//        verify(mockProductDaoMem, times(numberOfCalls)).add(product);
-//        doCallRealMethod().when(mockProductDaoMem).addAll(product, product);
+    void addAll_addMultipleProducts_listSizeIncreases() {
+        productDaoMem.addAll(product, product2);
+        Assertions.assertEquals(2, productDaoMem.getAll().size());
     }
 
     @Test
