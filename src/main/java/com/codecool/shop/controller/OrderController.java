@@ -7,6 +7,7 @@ import com.codecool.shop.dao.database.UserDaoJdbc;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.OrderData;
 import com.codecool.shop.model.User;
+import com.codecool.shop.utility.MailHandler;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -63,6 +64,9 @@ public class OrderController extends HttpServlet {
             Order order = orderDataStore.find(orderData.getOrderId());
             order.saveData(orderData);
             orderDataStore.update(order);
+
+            MailHandler.sendMail(order.getEmail());
+
             PrintWriter writer = resp.getWriter();
             writer.println(orderData.getOrderId());
         } catch (JsonSyntaxException exception) {
