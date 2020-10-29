@@ -99,7 +99,8 @@ class ProductDaoMemTest {
     }
 
     @Test
-    void getAll() {
+    void getAll_withEmptyList_returnsEmptyList() {
+        Assertions.assertEquals(0, productDaoMem.getAll().size());
     }
 
     @Test
