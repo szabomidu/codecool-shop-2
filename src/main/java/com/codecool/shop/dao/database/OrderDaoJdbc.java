@@ -103,6 +103,11 @@ public class OrderDaoJdbc implements OrderDao {
     }
 
     @Override
+    public void clearData() {
+
+    }
+
+    @Override
     public void update(Order order) {
         try {
             Connection connection = dataSource.getConnection();
