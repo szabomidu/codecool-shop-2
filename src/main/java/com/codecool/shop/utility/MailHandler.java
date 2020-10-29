@@ -1,14 +1,21 @@
 package com.codecool.shop.utility;
 
+import com.codecool.shop.model.Order;
+
 import javax.mail.*;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class MailHandler {
 
-    public static void sendMail(String customerEmail) {
+    private final Order order;
+
+    public MailHandler(Order order) {
+        this.order = order;
+    }
+
+    public  void sendMail() {
 
         System.out.println("Trying to send message");
         Properties properties = new Properties();
@@ -30,7 +37,7 @@ public class MailHandler {
 
         try {
             System.out.println("Preparing message");
-            Message message = prepareMessage(session, serverEmail, customerEmail);
+            Message message = prepareMessage(session, serverEmail);
             Transport.send(message);
             System.out.println("Message sent successfully");
         } catch (MessagingException e) {
@@ -38,10 +45,10 @@ public class MailHandler {
         }
     }
 
-    private static Message prepareMessage(Session session, String serverEmail, String customerEmail) throws MessagingException {
+    private Message prepareMessage(Session session, String serverEmail) throws MessagingException {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(serverEmail));
-        message.setRecipient(Message.RecipientType.TO, new InternetAddress(customerEmail));
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(order.getEmail()));
         message.setSubject("Order confirmation");
         message.setText("We received your order, your products will be delivered soon");
         return message;

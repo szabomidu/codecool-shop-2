@@ -65,7 +65,8 @@ public class OrderController extends HttpServlet {
             order.saveData(orderData);
             orderDataStore.update(order);
 
-            MailHandler.sendMail(order.getEmail());
+            MailHandler mailHandler = new MailHandler(order);
+            mailHandler.sendMail();
 
             PrintWriter writer = resp.getWriter();
             writer.println(orderData.getOrderId());
