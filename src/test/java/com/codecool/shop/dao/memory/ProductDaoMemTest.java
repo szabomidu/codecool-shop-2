@@ -84,6 +84,21 @@ class ProductDaoMemTest {
     }
 
     @Test
+    void remove_withExistingId_listSizeDecreases() {
+        productDaoMem.addAll(product, product2);
+        productDaoMem.remove(2);
+        Assertions.assertEquals(1, productDaoMem.getAll().size());
+    }
+
+    @Test
+    void remove_removeAllItem_listSizeBecomesZero() {
+        productDaoMem.addAll(product, product2);
+        productDaoMem.remove(2);
+        productDaoMem.remove(1);
+        Assertions.assertEquals(0, productDaoMem.getAll().size());
+    }
+
+    @Test
     void getAll() {
     }
 
