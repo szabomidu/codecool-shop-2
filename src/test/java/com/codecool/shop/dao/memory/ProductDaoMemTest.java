@@ -104,6 +104,18 @@ class ProductDaoMemTest {
     }
 
     @Test
+    void getAll_withOneItem_returnsOneLongList() {
+        productDaoMem.add(product);
+        Assertions.assertEquals(1, productDaoMem.getAll().size());
+    }
+
+    @Test
+    void getAll_withMultipleItems_returnsCorrectLongList() {
+        productDaoMem.addAll(product, product2);
+        Assertions.assertEquals(2, productDaoMem.getAll().size());
+    }
+
+    @Test
     void getBy() {
     }
 
