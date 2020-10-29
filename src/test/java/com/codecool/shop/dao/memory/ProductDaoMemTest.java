@@ -122,6 +122,12 @@ class ProductDaoMemTest {
     }
 
     @Test
+    void getByProductCategory_withExistingCategory_returnsCorrectLongList() {
+        productDaoMem.addAll(product, product2);
+        Assertions.assertEquals(2, productDaoMem.getBy(supplier).size());
+    }
+
+    @Test
     void testGetBy() {
     }
 
