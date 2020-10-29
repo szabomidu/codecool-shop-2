@@ -79,7 +79,7 @@ public class MailHandler {
             newLine += "<td>" + lineItem.getUnitPrice() + "</td>";
             newLine += "<td>" + lineItem.getQuantity() + "</td>";
             newLine += "<td>" + lineItem.getTotalPrice() + "</td>";
-            newLine += "<tr>";
+            newLine += "</tr>";
             table.append(newLine);
         }
         table.append("</table>");
