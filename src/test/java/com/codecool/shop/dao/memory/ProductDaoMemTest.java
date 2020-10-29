@@ -66,6 +66,17 @@ class ProductDaoMemTest {
     }
 
     @Test
+    void find_withExistingId_returnsProduct() {
+        productDaoMem.add(product);
+        Assertions.assertEquals(product, productDaoMem.find(1));
+    }
+
+    @Test
+    void find_withEmptyList_returnsNull() {
+        Assertions.assertNull(productDaoMem.find(1));
+    }
+
+    @Test
     void remove() {
     }
 
