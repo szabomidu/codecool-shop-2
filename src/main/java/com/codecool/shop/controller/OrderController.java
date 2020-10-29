@@ -1,12 +1,15 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.dao.database.LineItemDaoJdbc;
 import com.codecool.shop.dao.database.OrderDaoJdbc;
 import com.codecool.shop.dao.database.UserDaoJdbc;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.OrderData;
 import com.codecool.shop.model.User;
+import com.codecool.shop.utility.MailHandler;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -52,8 +55,10 @@ public class OrderController extends HttpServlet {
         StringBuilder stringBuilder = new StringBuilder();
         Gson gson = new Gson();
         OrderDao orderDataStore;
+        LineItemDao lineItemDataStore;
         try {
             orderDataStore = OrderDaoJdbc.getInstance();
+            lineItemDataStore = LineItemDaoJdbc.getInstance();
             String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
@@ -63,6 +68,10 @@ public class OrderController extends HttpServlet {
             Order order = orderDataStore.find(orderData.getOrderId());
             order.saveData(orderData);
             orderDataStore.update(order);
+
+            MailHandler mailHandler = new MailHandler(order, lineItemDataStore.getBy(order));
+            mailHandler.sendMail();
+
             PrintWriter writer = resp.getWriter();
             writer.println(orderData.getOrderId());
         } catch (JsonSyntaxException exception) {
