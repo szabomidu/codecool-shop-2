@@ -13,4 +13,5 @@ public interface UserDao {
 
     List<User> getAll();
     User getBy(Order order);
+    void clearData();
 }
