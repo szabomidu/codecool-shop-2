@@ -76,6 +76,17 @@
             <artifactId>postgresql</artifactId>
             <version>42.2.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.6.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.3.3</version>
+            <scope>test</scope>
         <!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
         <dependency>
             <groupId>com.sun.mail</groupId>

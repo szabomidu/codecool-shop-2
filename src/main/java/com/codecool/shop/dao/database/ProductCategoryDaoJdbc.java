@@ -114,4 +114,9 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             throw new RuntimeException("Error while getting all Categories.", e);
         }
     }
+
+    @Override
+    public void clearData() {
+
+    }
 }

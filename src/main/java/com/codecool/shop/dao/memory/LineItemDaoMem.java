@@ -58,6 +58,11 @@ public class LineItemDaoMem implements LineItemDao {
     }
 
     @Override
+    public void clearData() {
+        data.clear();
+    }
+  
+    @Override
     public LineItem getBy(Order order, Product product) {
         return order.findLineItemForProduct(product);
     }

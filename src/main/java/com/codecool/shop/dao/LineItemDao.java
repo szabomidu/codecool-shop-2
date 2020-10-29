@@ -14,6 +14,7 @@ public interface LineItemDao {
     void update(LineItem lineItem, int change);
 
     List<LineItem> getAll();
+    void clearData();
     LineItem getBy(Order order, Product product);
     List<LineItem> getBy(Order order);
 }
