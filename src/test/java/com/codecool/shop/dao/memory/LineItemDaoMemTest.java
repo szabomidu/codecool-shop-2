@@ -79,4 +79,11 @@ class LineItemDaoMemTest {
                             && lineItems.get(1).equals(lineItemTwo)
                             && lineItems.get(2).equals(lineItemThree));
     }
+
+    @Test
+    void clearData_RemovesAllItems() {
+        lineItemDao.addAll(lineItemTwo, lineItemThree);
+        lineItemDao.clearData();
+        assertEquals(0, lineItemDao.getAll().size());
+    }
 }

@@ -11,4 +11,5 @@ public interface LineItemDao {
     void remove(int id);
 
     List<LineItem> getAll();
+    void clearData();
 }
