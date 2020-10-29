@@ -1,33 +1,37 @@
 package com.codecool.shop.dao.memory;
 
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 class ProductDaoMemTest {
-    private List<Product> data;
     private ProductDaoMem productDaoMem;
-    @Mock ProductDaoMem mockProductDaoMem = Mockito.mock(ProductDaoMem.class);
-    @Mock Product product = Mockito.mock(Product.class, Mockito.RETURNS_DEEP_STUBS);
+    Supplier supplier;
+    Supplier supplier2;
+    ProductCategory productCategory;
+    ProductCategory productCategory2;
+    Product product;
+    Product product2;
 
     @BeforeEach
     void setUp() {
-        data = new ArrayList<>();
+        supplier = new Supplier("Test supplier", "test description");
+        supplier2 = new Supplier("Negative Test supplier", "negative test description");
+        productCategory = new ProductCategory("Test category", "test department", "test description");
+        productCategory2 = new ProductCategory("Negative Test category", " Negative test department", "Negative test description");
+        product = new Product("Test product", (float) 12.5, "USD", "test description", productCategory, supplier);
+        product2 = new Product("Test product2", (float) 12.5, "USD", "test description2", productCategory, supplier);
         productDaoMem = ProductDaoMem.getInstance();
-
     }
 
-    @Test
-    void getInstance() {
+    @AfterEach
+    void tearDown() {
+        productDaoMem.clearData();
     }
 
     @Test
