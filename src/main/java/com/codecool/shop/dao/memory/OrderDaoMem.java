@@ -51,6 +51,11 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
+    public void clearData() {
+        data.clear();
+    }
+  
+    @Override
     public void update(Order order) {
 
     }

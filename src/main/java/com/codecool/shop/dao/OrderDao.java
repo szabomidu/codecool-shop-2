@@ -10,6 +10,7 @@ public interface OrderDao {
     Order find(int id);
     void remove(int id);
     List<Order> getAll();
+    void clearData();
     void update(Order order);
 }
 
