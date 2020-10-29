@@ -116,7 +116,9 @@ class ProductDaoMemTest {
     }
 
     @Test
-    void getBy() {
+    void getByProductCategory_withNonExistingCategory_returnsEmptyList() {
+        productDaoMem.addAll(product, product2);
+        Assertions.assertEquals(0, productDaoMem.getBy(supplier2).size());
     }
 
     @Test
