@@ -60,4 +60,9 @@ public class SupplierDaoJdbc implements SupplierDao {
     public List<Supplier> getAll() {
         return null;
     }
+
+    @Override
+    public void clearData() {
+
+    }
 }
