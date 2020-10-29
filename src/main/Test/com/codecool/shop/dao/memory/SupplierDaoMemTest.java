@@ -36,6 +36,11 @@ class SupplierDaoMemTest {
     }
 
     @Test
+    void checkIdAfterAdd() {
+        assertEquals(1, supplierDaoMem.findByName("supplier1").getId());
+    }
+
+    @Test
     void addAll() {
         supplierDaoMem.addAll(supplier2, supplier3);
         assertEquals(3, supplierDaoMem.getAll().size());
@@ -47,9 +52,20 @@ class SupplierDaoMemTest {
     }
 
     @Test
+    void notFound() {
+        assertNull(supplierDaoMem.find(2));
+    }
+
+    @Test
     void findByName() {
         assertEquals(supplier1, supplierDaoMem.findByName("supplier1"));
     }
+
+    @Test
+    void notFoundByName() {
+        assertNull(supplierDaoMem.findByName("supplier2"));
+    }
+
 
     @Test
     void remove() {
