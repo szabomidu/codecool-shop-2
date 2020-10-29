@@ -1,7 +1,9 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.dao.database.LineItemDaoJdbc;
 import com.codecool.shop.dao.database.OrderDaoJdbc;
 import com.codecool.shop.dao.database.UserDaoJdbc;
 import com.codecool.shop.model.Order;
@@ -53,8 +55,10 @@ public class OrderController extends HttpServlet {
         StringBuilder stringBuilder = new StringBuilder();
         Gson gson = new Gson();
         OrderDao orderDataStore;
+        LineItemDao lineItemDataStore;
         try {
             orderDataStore = OrderDaoJdbc.getInstance();
+            lineItemDataStore = LineItemDaoJdbc.getInstance();
             String line;
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
@@ -65,7 +69,7 @@ public class OrderController extends HttpServlet {
             order.saveData(orderData);
             orderDataStore.update(order);
 
-            MailHandler mailHandler = new MailHandler(order);
+            MailHandler mailHandler = new MailHandler(order, lineItemDataStore.getBy(order));
             mailHandler.sendMail();
 
             PrintWriter writer = resp.getWriter();

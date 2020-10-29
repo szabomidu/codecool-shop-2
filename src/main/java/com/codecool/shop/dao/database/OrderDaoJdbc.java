@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.database;
 
+import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.model.*;
 
