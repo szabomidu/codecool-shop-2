@@ -166,4 +166,9 @@ public class ProductDaoJdbc implements ProductDao {
             throw new RuntimeException("Error while finding Product.", e);
         }
     }
+
+    @Override
+    public void clearData() {
+        // method for test purpose
+    }
 }
