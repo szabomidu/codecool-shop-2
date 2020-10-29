@@ -11,5 +11,7 @@ public interface OrderDao {
     void remove(int id);
 
     List<Order> getAll();
+
+    void clearData();
 }
 
