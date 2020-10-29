@@ -48,4 +48,9 @@ public class LineItemDaoMem implements LineItemDao {
     public List<LineItem> getAll() {
         return data;
     }
+
+    @Override
+    public void clearData() {
+        data.clear();
+    }
 }

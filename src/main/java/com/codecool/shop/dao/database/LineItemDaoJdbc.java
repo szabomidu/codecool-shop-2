@@ -97,4 +97,9 @@ public class LineItemDaoJdbc implements LineItemDao {
         } catch (SQLException e) {
             throw new RuntimeException("Error while finding LineItem.", e);
         }    }
+
+    @Override
+    public void clearData() {
+
+    }
 }
