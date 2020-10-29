@@ -70,4 +70,9 @@ public class ProductDaoMem implements ProductDao {
                                         && t.getSupplier().equals(supplier))
                             .collect(Collectors.toList());
     }
+
+    @Override
+    public void clearData() {
+        data.clear();
+    }
 }
