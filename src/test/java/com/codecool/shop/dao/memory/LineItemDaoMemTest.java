@@ -55,8 +55,13 @@ class LineItemDaoMemTest {
     }
 
     @Test
-    void find_ReturnsLineItemWithGivenId() {
+    void find_IfIdIsPresent_ReturnsLineItemWithGivenId() {
         assertEquals(lineItemOne, lineItemDao.find(1));
+    }
+
+    @Test
+    void find_IfIdIsNotPresent_ReturnsNull() {
+        assertNull(lineItemDao.find(5));
     }
 
     @Test
@@ -66,9 +71,15 @@ class LineItemDaoMemTest {
     }
 
     @Test
-    void remove_DecreasesSizeOfList() {
+    void remove_WhenIdPresent_DecreasesSizeOfList() {
         lineItemDao.remove(1);
         assertEquals(0, lineItemDao.getAll().size());
+    }
+
+    @Test
+    void remove_WhenIdNotPresent_DoesNotDecreaseSizeOfList() {
+        lineItemDao.remove(5);
+        assertEquals(1, lineItemDao.getAll().size());
     }
 
     @Test
