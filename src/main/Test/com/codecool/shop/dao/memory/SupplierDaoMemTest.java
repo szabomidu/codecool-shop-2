@@ -86,4 +86,10 @@ class SupplierDaoMemTest {
         supplierDaoMem.addAll(supplier2, supplier3);
         assertEquals(3, supplierDaoMem.getAll().size());
     }
+
+    @Test
+    void clearData() {
+        supplierDaoMem.clearData();
+        assertEquals(0, supplierDaoMem.getAll().size());
+    }
 }
