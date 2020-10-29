@@ -55,4 +55,9 @@ public class UserDaoMem implements UserDao {
     public User getBy(Order order) {
         return data.stream().filter(t -> t.getOrders().contains(order)).findFirst().orElse(null);
     }
+
+    @Override
+    public void clearData() {
+        data.clear();
+    }
 }

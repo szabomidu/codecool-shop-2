@@ -9,9 +9,8 @@ public interface OrderDao {
     void addAll(Order ... orders);
     Order find(int id);
     void remove(int id);
-
     List<Order> getAll();
-
     void clearData();
+    void update(Order order);
 }
 
