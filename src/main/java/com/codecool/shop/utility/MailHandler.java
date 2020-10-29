@@ -17,7 +17,6 @@ public class MailHandler {
     private final List<LineItem> lineItems;
     private final String serverEmail = System.getenv("EMAIL");
     private final String serverPassword = System.getenv("EMAIL_PASSWORD");
-    private static final StringBuilder STRING_BUILDER = new StringBuilder();
 
     public MailHandler(Order order, List<LineItem> lineItems) {
         this.order = order;
@@ -61,24 +60,32 @@ public class MailHandler {
     }
 
     private String composeMessage() {
-        STRING_BUILDER.append(String.format("Dear %s %s,\n\n", order.getFirstName(), order.getLastName()));
-        STRING_BUILDER.append(String.format("We would like to inform you that we received your order (ID: %s) on %s.\n",
-                order.getId(),
-                currentDate()));
-        STRING_BUILDER.append("Your items: \n");
-        STRING_BUILDER.append(composeTable());
-        return STRING_BUILDER.toString();
+        String message = String.format("<p>Dear %s %s,</p>", order.getFirstName(), order.getLastName()) +
+                String.format("<p>We would like to inform you that we received your order (ID: %s) on %s</p>",
+                        order.getId(),
+                        currentDate()) +
+                "<p>Your items:</p>" +
+                composeTable() +
+                "<p>Your order will be delivered soon. In case of any questions feel free do contact us!</p>" +
+                "<p>Kind regards,</p>" +
+                "<p>Snail House</p>";
+        return message;
     }
 
     private String composeTable() {
         StringBuilder table = new StringBuilder("<table>");
-        table.append("<thead>" + "<th>Name</th>" + "<th>Unit Price</th>" + "<th>Quantity</th>" + "<th>Subtotal Price</th>" + "</thead>");
+        table.append("<thead>"
+                + "<th style=\"border-bottom: black solid 2px; text-align: center;\">Name</th>"
+                + "<th style=\"border-bottom: black solid 2px; text-align: center;\">Unit Price</th>"
+                + "<th style=\"border-bottom: black solid 2px; text-align: center;\">Quantity</th>"
+                + "<th style=\"border-bottom: black solid 2px; text-align: center;\">Subtotal Price</th>"
+                + "</thead>");
         for (LineItem lineItem : lineItems) {
             String newLine = "<tr>";
-            newLine += "<td>" + lineItem.getName() + "</td>";
-            newLine += "<td>" + lineItem.getUnitPrice() + "</td>";
-            newLine += "<td>" + lineItem.getQuantity() + "</td>";
-            newLine += "<td>" + lineItem.getTotalPrice() + "</td>";
+            newLine += "<td style=\"text-align: center;\">" + lineItem.getName() + "</td>";
+            newLine += "<td style=\"text-align: center;\">" + lineItem.getUnitPrice() + "</td>";
+            newLine += "<td style=\"text-align: center;\">" + lineItem.getQuantity() + "</td>";
+            newLine += "<td style=\"text-align: center;\">" + lineItem.getTotalPrice() + "</td>";
             newLine += "</tr>";
             table.append(newLine);
         }
