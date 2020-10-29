@@ -99,4 +99,8 @@ public class UserDaoJdbc implements UserDao {
     public User getBy(Order order) {
         return find(order.getUserId());
     }
+
+    @Override
+    public void clearData() {
+    }
 }
