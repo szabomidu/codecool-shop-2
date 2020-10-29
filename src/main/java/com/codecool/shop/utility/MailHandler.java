@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Stream;
 
 public class MailHandler {
 
@@ -75,22 +76,27 @@ public class MailHandler {
     private String composeTable() {
         StringBuilder table = new StringBuilder("<table>");
         table.append("<thead>"
-                + "<th style=\"border-bottom: black solid 2px; text-align: center;\">Name</th>"
+                + "<th style=\"border-bottom: black solid 2px;\">Name</th>"
                 + "<th style=\"border-bottom: black solid 2px; text-align: center;\">Unit Price</th>"
                 + "<th style=\"border-bottom: black solid 2px; text-align: center;\">Quantity</th>"
                 + "<th style=\"border-bottom: black solid 2px; text-align: center;\">Subtotal Price</th>"
                 + "</thead>");
         for (LineItem lineItem : lineItems) {
             String newLine = "<tr>";
-            newLine += "<td style=\"text-align: center;\">" + lineItem.getName() + "</td>";
-            newLine += "<td style=\"text-align: center;\">" + lineItem.getUnitPrice() + "</td>";
+            newLine += "<td>" + lineItem.getName() + "</td>";
+            newLine += "<td style=\"text-align: center;\">" + String.format("%.2f", lineItem.getUnitPrice()) + "</td>";
             newLine += "<td style=\"text-align: center;\">" + lineItem.getQuantity() + "</td>";
-            newLine += "<td style=\"text-align: center;\">" + lineItem.getTotalPrice() + "</td>";
+            newLine += "<td style=\"text-align: center;\">" + String.format("%.2f", lineItem.getTotalPrice()) + "</td>";
             newLine += "</tr>";
             table.append(newLine);
         }
+        table.append("<tr><td><b>Overall:</b></td><td></td><td></td><td style=\"text-align: center;\"><b>").append(String.format("%.2f", getOverallPrice())).append("</b></td></tr>");
         table.append("</table>");
         return table.toString();
+    }
+
+    private Float getOverallPrice() {
+        return lineItems.stream().map(LineItem::getTotalPrice).reduce(Float::sum).orElse(0f);
     }
 
     private Object currentDate() {
