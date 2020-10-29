@@ -112,4 +112,9 @@ public class SupplierDaoJdbc implements SupplierDao {
             throw new RuntimeException("Error while finding Product.", e);
         }
     }
+
+    @Override
+    public void clearData() {
+
+    }
 }

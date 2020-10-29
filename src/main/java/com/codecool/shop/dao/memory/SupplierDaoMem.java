@@ -54,4 +54,9 @@ public class SupplierDaoMem implements SupplierDao {
     public List<Supplier> getAll() {
         return data;
     }
+
+    @Override
+    public void clearData() {
+        data.clear();
+    }
 }
