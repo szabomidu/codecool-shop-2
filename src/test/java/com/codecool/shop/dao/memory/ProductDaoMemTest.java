@@ -60,11 +60,9 @@ class ProductDaoMemTest {
     }
 
     @Test
-    void find() {
+    void find_withNotExistingId_returnsNull() {
         productDaoMem.add(product);
-        doCallRealMethod().when(product).setId(data.size() + 1);
-        when(data.add(product)).thenCallRealMethod();
-        Assertions.assertEquals(Product.class, productDaoMem.find(data.size() + 1).getClass());
+        Assertions.assertNull(productDaoMem.find(2));
     }
 
     @Test
