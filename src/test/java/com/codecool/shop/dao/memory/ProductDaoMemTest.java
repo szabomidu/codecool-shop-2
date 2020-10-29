@@ -138,4 +138,16 @@ class ProductDaoMemTest {
         productDaoMem.addAll(product, product2);
         Assertions.assertEquals(2, productDaoMem.getBy(supplier, productCategory).size());
     }
+
+    @Test
+    void getByProductCategoryAndSupplier_withExistingSupplierAndNotExistingCategory_returnsEmptyList() {
+        productDaoMem.addAll(product, product2);
+        Assertions.assertEquals(0, productDaoMem.getBy(supplier, productCategory2).size());
+    }
+
+    @Test
+    void getByProductCategoryAndSupplier_withExistingCategoryAndNotExistingSupplier_returnsEmptyList() {
+        productDaoMem.addAll(product, product2);
+        Assertions.assertEquals(0, productDaoMem.getBy(supplier2, productCategory).size());
+    }
 }
