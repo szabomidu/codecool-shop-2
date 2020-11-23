@@ -61,7 +61,7 @@ public class MailHandler {
     }
 
     private String composeMessage() {
-        String message = String.format("<p>Dear %s %s,</p>", order.getFirstName(), order.getLastName()) +
+        return String.format("<p>Dear %s %s,</p>", order.getFirstName(), order.getLastName()) +
                 String.format("<p>We would like to inform you that we received your order (ID: %s) on %s</p>",
                         order.getId(),
                         currentDate()) +
@@ -70,7 +70,6 @@ public class MailHandler {
                 "<p>Your order will be delivered soon. In case of any questions feel free do contact us!</p>" +
                 "<p>Kind regards,</p>" +
                 "<p>Snail House</p>";
-        return message;
     }
 
     private String composeTable() {
