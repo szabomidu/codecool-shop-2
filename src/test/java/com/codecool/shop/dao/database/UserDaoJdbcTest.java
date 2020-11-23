@@ -23,8 +23,8 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class UserDaoJdbcTest {
 
-//	@InjectMocks
-//	private UserDaoJdbc userDaoJdbc;
+	@InjectMocks
+	private UserDaoJdbc userDaoJdbc;
 	@Mock
 	private DataSource dataSource;
 	@Mock
@@ -56,7 +56,7 @@ class UserDaoJdbcTest {
 		when(resultSet.getInt(1)).thenReturn(1);
 
 		user = new User("John");
-		new UserDaoJdbc(dataSource).add(user);
+		userDaoJdbc.add(user);
 		assertEquals(1, user.getId());
 	}
 
@@ -74,7 +74,7 @@ class UserDaoJdbcTest {
 		when(resultSet.getInt(1)).thenReturn(1);
 
 		user = new User("John");
-		new UserDaoJdbc(dataSource).add(user);
+		userDaoJdbc.add(user);
 
 		verify(statement, times(1)).setString(1, "John");
 		verify(statement, times(1)).executeUpdate();
@@ -92,7 +92,6 @@ class UserDaoJdbcTest {
 		when(resultSet.getInt(1)).thenReturn(1);
 
 		user = new User("John");
-		UserDaoJdbc userDaoJdbc = new UserDaoJdbc(dataSource);
 		userDaoJdbc.add(user);
 
 		when(connection.prepareStatement(anyString())).thenReturn(statement);
@@ -110,7 +109,6 @@ class UserDaoJdbcTest {
 		when(statement.executeQuery()).thenReturn(resultSet);
 		when(resultSet.next()).thenReturn(false);
 
-		UserDaoJdbc userDaoJdbc = new UserDaoJdbc(dataSource);
 		int nonExistingId = 1000;
 		assertNull(userDaoJdbc.find(nonExistingId));
 
@@ -119,7 +117,7 @@ class UserDaoJdbcTest {
 	@Test
 	public void find_whenCannotConnectToDatabase_ThrowsException() throws SQLException {
 		when(dataSource.getConnection()).thenThrow(new SQLException());
-		assertThrows(RuntimeException.class, () -> new UserDaoJdbc(dataSource).find(10));
+		assertThrows(RuntimeException.class, () -> userDaoJdbc.find(10));
 	}
 
 	@Test
@@ -133,7 +131,6 @@ class UserDaoJdbcTest {
 										new User("B"),
 										new User("C"),
 										new User("D")};
-		UserDaoJdbc userDaoJdbc = new UserDaoJdbc(dataSource);
 		userDaoJdbc.addAll(users);
 		verify(connection, times(users.length)).prepareStatement(anyString(), eq(Statement.RETURN_GENERATED_KEYS));
 
@@ -148,7 +145,7 @@ class UserDaoJdbcTest {
 				new User("C"),
 				new User("D")};
 
-		assertThrows(RuntimeException.class, () -> new UserDaoJdbc(dataSource).addAll(users));
+		assertThrows(RuntimeException.class, () -> userDaoJdbc.addAll(users));
 	}
 
 	@Test
@@ -156,7 +153,7 @@ class UserDaoJdbcTest {
 		when(connection.prepareStatement(anyString())).thenReturn(statement);
 
 		int id = 6;
-		new UserDaoJdbc(dataSource).remove(id);
+		userDaoJdbc.remove(id);
 
 		verify(statement, times(1)).setInt(1, id);
 		verify(statement, times(1)).executeUpdate();
@@ -166,7 +163,7 @@ class UserDaoJdbcTest {
 	@Test
 	public void remove_whenCannotConnectToDatabase_ThrowsException() throws SQLException {
 		when(dataSource.getConnection()).thenThrow(new SQLException());
-		assertThrows(RuntimeException.class, () -> new UserDaoJdbc(dataSource).remove(10));
+		assertThrows(RuntimeException.class, () -> userDaoJdbc.remove(10));
 	}
 
 	@Test
@@ -200,7 +197,7 @@ class UserDaoJdbcTest {
 			}
 		});
 
-		List<User> usersRetrieved = new UserDaoJdbc(dataSource).getAll();
+		List<User> usersRetrieved = userDaoJdbc.getAll();
 
 		for (int i = 0; i < names.length; i++) {
 			User user = new User(names[i]);
@@ -212,7 +209,7 @@ class UserDaoJdbcTest {
 	@Test
 	public void getAll_whenCannotConnectToDatabase_ThrowsException() throws SQLException {
 		when(dataSource.getConnection()).thenThrow(new SQLException());
-		assertThrows(RuntimeException.class, () -> new UserDaoJdbc(dataSource).getAll());
+		assertThrows(RuntimeException.class, () -> userDaoJdbc.getAll());
 	}
 
 }
