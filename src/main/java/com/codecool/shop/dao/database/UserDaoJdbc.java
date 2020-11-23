@@ -10,22 +10,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UserDaoJdbc implements UserDao {
-    private DataSource dataSource = ConnectionHandler.getDataSource();
+    private DataSource dataSource;
     private static UserDaoJdbc instance = null;
 
-    private UserDaoJdbc() throws SQLException {
-    }
 
     public UserDaoJdbc(DataSource dataSource) throws SQLException {
     	this.dataSource = dataSource;
 	}
-
-    public static UserDao getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new UserDaoJdbc();
-        }
-        return instance;
-    }
 
     @Override
     public int add(User user) {

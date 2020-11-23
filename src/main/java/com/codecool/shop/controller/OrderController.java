@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.LineItemDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.dao.database.ConnectionHandler;
 import com.codecool.shop.dao.database.LineItemDaoJdbc;
 import com.codecool.shop.dao.database.OrderDaoJdbc;
 import com.codecool.shop.dao.database.UserDaoJdbc;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,8 +33,9 @@ public class OrderController extends HttpServlet {
         BufferedReader reader = req.getReader();
         OrderDao orderDataStore;
         try {
-            orderDataStore = OrderDaoJdbc.getInstance();
-            UserDao userDataStore = UserDaoJdbc.getInstance();
+			DataSource dataSource = ConnectionHandler.getDataSource();
+			orderDataStore = OrderDaoJdbc.getInstance();
+            UserDao userDataStore = new UserDaoJdbc(dataSource);
             int userId = Integer.parseInt(reader.readLine());
             Order newOrder = new Order(userId);
             User user = userDataStore.find(userId);

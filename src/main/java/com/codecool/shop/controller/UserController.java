@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.dao.database.ConnectionHandler;
 import com.codecool.shop.dao.database.UserDaoJdbc;
 import com.codecool.shop.dao.memory.UserDaoMem;
 import com.codecool.shop.model.User;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,11 +19,12 @@ import java.sql.SQLException;
 @WebServlet(urlPatterns = "/api/user")
 public class UserController extends HttpServlet {
 
-    @Override
+	@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDao userDataStore;
-        try {
-            userDataStore = UserDaoJdbc.getInstance();
+		UserDao userDataStore;
+		try {
+			DataSource dataSource = ConnectionHandler.getDataSource();
+			userDataStore = new UserDaoJdbc(dataSource);
             int id = userDataStore.add(new User("Guest"));
             PrintWriter out = resp.getWriter();
             out.println(id);
