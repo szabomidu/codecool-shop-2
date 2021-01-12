@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="icon"
+          type="image/png"
+          href="/static/img/favicon.png">
     <title>Codecool Shop</title>
 
     <!-- Bootstrap components -->
@@ -14,45 +16,93 @@
 
     <!--Latest compiled and minified Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
-
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <script type="module" src="/static/js/product/main.js" defer></script>
+    <script src="https://kit.fontawesome.com/5c17addabc.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
 <body>
+<header class="header-container">
+    <h1 class="header-title">Fantasy Figures Shop</h1>
+    <div class="cart-box">
+        <div class="cart-image" th:attr="data-user-id=0, data-order-id=0">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="cart-counter">0</div>
+        </div>
+    </div>
+</header>
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
+<div id="cart-content" class="hidden">
+    <div class="table-div">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Sub-total</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="cart-content-body">
+
+            </tbody>
+        </table>
+    </div>
+        <div class="cart-footer">
+            <button id="checkout" class="btn btn-primary">Checkout</button>
+            <span class="price-label">Total price:
+            <span class="total-price">7688.6$</span>
+            </span>
+        </div>
 </div>
 
 <div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+    <div class="search-card">
+        <select id="supplier-select">
+            <option value="0" selected>All</option>
+            <option th:each="supplier : ${suppliers}" th:text="${supplier.name}" th:value="${supplier.id}">Supplier
+                Name
+            </option>
+        </select>
+        <select id="category-select">
+            <option value="0" selected>All</option>
+            <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}">Category
+                Name
+            </option>
+        </select>
+        <button id="filter" class="btn btn-primary">Filter</button>
     </div>
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
             <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <img class="" src="http://placehold.it/400x250/000/fff"
+                     th:src="@{${'/static/img/product_' + prod.getId() + '.jpg'}}"
+                     alt=""/>
                 <div class="card-header">
                     <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                     <p class="card-text" th:text="${prod.description}">Product description... </p>
                 </div>
                 <div class="card-body">
                     <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                        <p th:text="${prod.getPrice()}">100 USD</p>
                     </div>
                     <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
+                        <button class="btn btn-primary to-cart-btn" type="button"
+                                th:attr="data-product-id=${prod.getId()}">Add to cart
+                        </button>
                     </div>
                 </div>
             </div>
@@ -60,8 +110,6 @@
     </div>
 
 </div>
-
 <div th:replace="footer.html :: copy"></div>
-
 </body>
 </html>

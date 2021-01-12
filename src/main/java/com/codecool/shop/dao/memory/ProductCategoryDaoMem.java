@@ -1,10 +1,11 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.memory;
 
 
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductCategoryDaoMem implements ProductCategoryDao {
@@ -31,8 +32,18 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     }
 
     @Override
+    public void addAll(ProductCategory... categories) {
+        Arrays.stream(categories).forEach(this::add);
+    }
+
+    @Override
     public ProductCategory find(int id) {
         return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+    }
+
+    @Override
+    public ProductCategory findByName(String name) {
+        return data.stream().filter(t -> t.getName().equals(name)).findFirst().orElse(null);
     }
 
     @Override
@@ -43,5 +54,10 @@ public class ProductCategoryDaoMem implements ProductCategoryDao {
     @Override
     public List<ProductCategory> getAll() {
         return data;
+    }
+
+    @Override
+    public void clearData() {
+        data.clear();
     }
 }
